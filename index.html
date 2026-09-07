@@ -132,12 +132,72 @@
       display:inline-flex; align-items:center; gap:5px;
       padding: 4px 8px; border-radius: 999px; background: #f4f8fb;
     }
+    .map-stage { position: relative; }
     #map {
       height: 560px;
       width: 100%;
       overflow: hidden;
       background: #d9e3ed;
     }
+    .map-fs-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 500;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--navy);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 14px rgba(15,53,87,.2);
+    }
+    .map-fs-btn:hover { background: #f4f8fb; }
+    .map-fs-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .map-shell.is-fullscreen,
+    .map-shell:fullscreen,
+    .map-shell:-webkit-full-screen {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      border-radius: 0;
+      margin: 0;
+      border: 0;
+      background: var(--surface);
+    }
+    .map-shell.is-fullscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 4000;
+    }
+    .map-shell.is-fullscreen .map-head,
+    .map-shell:fullscreen .map-head,
+    .map-shell:-webkit-full-screen .map-head {
+      display: none;
+    }
+    .map-shell.is-fullscreen .map-stage,
+    .map-shell:fullscreen .map-stage,
+    .map-shell:-webkit-full-screen .map-stage {
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+    .map-shell.is-fullscreen #map,
+    .map-shell:fullscreen #map,
+    .map-shell:-webkit-full-screen #map {
+      height: 100%;
+    }
+    .map-shell.is-fullscreen .map-player,
+    .map-shell:fullscreen .map-player,
+    .map-shell:-webkit-full-screen .map-player {
+      flex: 0 0 auto;
+    }
+    body.map-fs-open { overflow: hidden; }
 
     .map-player {
       display: grid;
@@ -156,8 +216,21 @@
     }
     .play-btn:hover { background: #16466f; }
     .play-btn svg { width: 18px; height: 18px; fill: currentColor; }
-    .player-meta { display:flex; justify-content:space-between; gap:12px; align-items:baseline; margin-bottom: 8px; }
-    .player-meta strong { font-size: 15px; letter-spacing: -.02em; }
+    .player-meta {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .player-meta strong {
+      font-size: 15px;
+      letter-spacing: -.02em;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
     .player-meta span { font-size: 12px; color: var(--muted); font-weight: 700; white-space: nowrap; }
     .player-track {
       position: relative; height: 44px; cursor: pointer;
@@ -235,7 +308,8 @@
     @media (max-width: 800px) {
       .map-player { grid-template-columns: 44px minmax(0,1fr); padding: 12px; gap: 10px; }
       .play-btn { width: 44px; height: 44px; border-radius: 14px; }
-      .player-meta { flex-direction: column; gap: 2px; }
+      .player-meta { grid-template-columns: 1fr; gap: 4px; }
+      .player-meta-right { justify-content: start; }
     }
 
     .section-title {
@@ -380,6 +454,128 @@
     }
     .stay-chip.night small { color: #8fd4e8; }
     .stay-chip.night span { color: #b9cbdd; }
+    .stay-chip .wx {
+      margin-top: 5px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #3d6a88;
+    }
+    .stay-chip.night .wx { color: #8fd4e8; }
+    .wx.is-empty { color: #9aaec0; font-weight: 700; }
+    .stay-chip.night .wx.is-empty { color: #7f93a8; }
+
+    .day-wx {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 0 0 16px;
+    }
+    .wx-card {
+      background: linear-gradient(180deg, #f5fbfe, #eef5fb);
+      border: 1px solid #d7e6f1;
+      border-radius: 14px;
+      padding: 10px 12px;
+      min-height: 86px;
+    }
+    .wx-card.is-loading, .wx-card.is-empty {
+      color: var(--muted);
+      font-size: 13px;
+      display: grid;
+      place-items: center;
+    }
+    .wx-card small {
+      display: block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #6d8498;
+    }
+    .wx-main {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 4px 0 2px;
+    }
+    .wx-icon { font-size: 22px; line-height: 1; }
+    .wx-card b { font-size: 22px; letter-spacing: -.03em; }
+    .wx-card em {
+      display: block;
+      font-style: normal;
+      font-size: 12px;
+      font-weight: 700;
+      color: #3d5368;
+    }
+    .wx-card .wx-sea {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .night-card .wx {
+      display: block;
+      margin-top: 7px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #0f3557;
+    }
+    .wx-pill {
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      background: #e7f4fb;
+      color: #1d6fa5;
+    }
+    .overnight .wx-pill { background: rgba(88,185,212,.18); color: #8fd4e8; }
+    .popup-wx {
+      margin-top: 8px;
+      padding: 7px 8px;
+      border-radius: 10px;
+      background: #f3f8fc;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f3557;
+      line-height: 1.35;
+    }
+    .popup-wx small { display: block; color: #65748b; font-weight: 700; }
+    .player-meta-right {
+      display: grid;
+      grid-template-columns: 9.4rem 6.8rem;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: nowrap;
+      justify-content: end;
+    }
+    .player-wx {
+      box-sizing: border-box;
+      min-width: 0;
+      height: 22px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #e8f3fa;
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .player-wx:empty { background: transparent; }
+    .player-time {
+      min-width: 0;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .wx-note {
+      margin: 8px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
 
     .overnight {
       display: grid;
@@ -403,6 +599,15 @@
     }
 
     .popup-night { margin-top: 6px; font-size: 12px; font-weight: 700; color: #0f3557; }
+    .popup-gps {
+      margin-top: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .01em;
+    }
+    .popup-gps a { color: #3d5368; text-decoration: none; }
+    .popup-gps a:hover { color: #1d6fa5; }
 
     .stops { display:grid; gap:12px; }
     .stop {
@@ -553,6 +758,7 @@
       .route-title h3 { font-size:22px; }
       .sailing { white-space:normal; }
       .nights { grid-template-columns: 1fr 1fr; }
+      .day-wx { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 520px) {
@@ -567,6 +773,7 @@
       .day-card { border-radius:18px; }
       .nights { grid-template-columns: 1fr; }
       .nights-shell { padding: 18px; }
+      .day-wx { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -632,15 +839,22 @@
       </div>
     </section>
 
-    <section class="map-shell">
+    <section class="map-shell" id="mapShell">
       <div class="map-head">
         <div>
           <h2>Harta traseului</h2>
-          <p>Play pentru previzualizare, sau trage cursorul pe timeline. Markerii arată tipul opririi.</p>
+          <p>Linia urmează canalele de navigație, nu drumul drept. Markerii sunt pe GPS-ul real al danei sau ancorajului.</p>
         </div>
         <div class="map-legend" id="mapLegend"></div>
       </div>
-      <div id="map"></div>
+      <div class="map-stage">
+        <div id="map"></div>
+        <button type="button" class="map-fs-btn" id="mapFsBtn" aria-label="Ecran complet" title="Ecran complet">
+          <svg id="mapFsIcon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/>
+          </svg>
+        </button>
+      </div>
       <div class="map-player">
         <button type="button" class="play-btn" id="playBtn" aria-label="Redă traseul">
           <svg id="playIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -648,7 +862,10 @@
         <div>
           <div class="player-meta">
             <strong id="playerPlace">Sukošan — Marina Dalmacija</strong>
-            <span id="playerTime">Duminică · 07:00</span>
+            <span class="player-meta-right">
+              <span id="playerWx" class="player-wx"></span>
+              <span id="playerTime" class="player-time">Dum. 07:00</span>
+            </span>
           </div>
           <div class="player-track" id="playerTrack" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Timeline călătorie">
             <div class="player-rail"></div>
@@ -669,27 +886,27 @@
         </p>
       </div>
       <div class="nights">
-        <div class="night-card">
+        <div class="night-card" data-wx="d1_trogir">
           <small>Noaptea 1 · Dum 13</small>
           <b>Trogir</b>
           <span>ACI Marina Trogir · 15:00 → lun 09:00 · ~18 h</span>
         </div>
-        <div class="night-card">
+        <div class="night-card" data-wx="d2_palm">
           <small>Noaptea 2 · Lun 14</small>
           <b>Vinogradišće</b>
           <span>Geamanduri la Laganini · 17:30 → mar 07:30 · ~14 h</span>
         </div>
-        <div class="night-card">
+        <div class="night-card" data-wx="d3_vis">
           <small>Noaptea 3 · Mar 15</small>
           <b>Vis Town</b>
           <span>Portul orașului · 16:00 → mie 09:00 · ~17 h</span>
         </div>
-        <div class="night-card">
+        <div class="night-card" data-wx="d4_korcula">
           <small>Noaptea 4 · Mie 16</small>
           <b>Korčula</b>
           <span>ACI Marina Korčula · 17:00 → joi 07:00 · ~14 h</span>
         </div>
-        <div class="night-card">
+        <div class="night-card" data-wx="d5_kremik">
           <small>Noaptea 5 · Joi 17</small>
           <b>Primošten</b>
           <span>Marina Kremik sau portul orașului · 18:00 → vin 08:00 · ~14 h</span>
@@ -702,7 +919,8 @@
         <h2>Timeline complet</h2>
       </div>
       <p>
-        Fiecare zi e navigație la lumină. La destinații vezi cât staționăm, iar noaptea e marcată cu marina sau geamandura.
+        Fiecare zi e navigație la lumină. La destinații vezi cât staționăm, noaptea e marcată cu marina sau geamandura, iar prognoza e pe ora planificată în fiecare loc.
+        <span class="wx-note">Meteo: temperatură, vânt în noduri și valuri (Open-Meteo), pe GPS-ul opririi.</span>
       </p>
     </div>
 
@@ -719,12 +937,13 @@
             </div>
             <div class="sailing">~40 NM • 6–7 h de zi</div>
           </div>
+          <div class="day-wx" data-wx-ids="d1_start,d1_lagoon,d1_trogir"></div>
           <div class="day-stays">
-            <div class="stay-chip"><small>Oprire</small><b>Blue Lagoon</b><span>~11:00 · 1–1.5 h</span></div>
-            <div class="stay-chip night"><small>Înoptare</small><b>ACI Trogir</b><span>15:00 → lun 09:00 · ~18 h</span></div>
+            <div class="stay-chip" data-wx="d1_lagoon"><small>Oprire</small><b>Blue Lagoon</b><span>~11:00 · 1–1.5 h</span></div>
+            <div class="stay-chip night" data-wx="d1_trogir"><small>Înoptare</small><b>ACI Trogir</b><span>15:00 → lun 09:00 · ~18 h</span></div>
           </div>
           <div class="stops">
-            <div class="stop">
+            <div class="stop" data-wx="d1_lagoon">
               <div class="stop-icon">💧</div>
               <div>
                 <h4>Blue Lagoon (Krknjaši, Drvenik Veli)</h4>
@@ -748,7 +967,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d1_evening">
               <div class="stop-icon">⛪</div>
               <div>
                 <h4>St. Lawrence Cathedral + centrul UNESCO</h4>
@@ -761,7 +980,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d1_evening">
               <div class="stop-icon">🏛️</div>
               <div>
                 <h4>City Loggia + turnul cu ceas</h4>
@@ -773,7 +992,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d1_dinner">
               <div class="stop-icon">🍽️</div>
               <div>
                 <h4>Konoba Trs</h4>
@@ -785,7 +1004,7 @@
               </div>
             </div>
           </div>
-          <div class="overnight">
+          <div class="overnight" data-wx="d1_trogir">
             <div class="stop-icon">🌙</div>
             <div>
               <h4>Înoptare — ACI Marina Trogir</h4>
@@ -814,12 +1033,13 @@
             </div>
             <div class="sailing">~35 NM • 5–6 h de zi</div>
           </div>
+          <div class="day-wx" data-wx-ids="d2_leave,d2_hvar,d2_palm"></div>
           <div class="day-stays">
-            <div class="stay-chip"><small>Oprire</small><b>Hvar Town</b><span>~14:00–17:00 · ~3 h</span></div>
-            <div class="stay-chip night"><small>Înoptare</small><b>Vinogradišće / Laganini</b><span>17:30 → mar 07:30 · ~14 h</span></div>
+            <div class="stay-chip" data-wx="d2_hvar"><small>Oprire</small><b>Hvar Town</b><span>~14:00–17:00 · ~3 h</span></div>
+            <div class="stay-chip night" data-wx="d2_palm"><small>Înoptare</small><b>Vinogradišće / Laganini</b><span>17:30 → mar 07:30 · ~14 h</span></div>
           </div>
           <div class="stops">
-            <div class="stop">
+            <div class="stop" data-wx="d2_hvar">
               <div class="stop-icon">🏛️</div>
               <div>
                 <h4>Hvar Town — dană de după-amiază</h4>
@@ -827,7 +1047,7 @@
                 <div class="meta"><span class="pill">~3 h la dană</span><span class="pill">14:00–17:00</span></div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d2_hvar">
               <div class="stop-icon">🏯</div>
               <div>
                 <h4>Fortica Hvar</h4>
@@ -840,7 +1060,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d2_hvar">
               <div class="stop-icon">🎭</div>
               <div>
                 <h4>Arsenal + vechiul teatru Hvar</h4>
@@ -852,7 +1072,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d2_hvar">
               <div class="stop-icon">⛪</div>
               <div>
                 <h4>Pjaca + Catedrala Sf. Ștefan</h4>
@@ -864,7 +1084,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d2_hvar">
               <div class="stop-icon">🌿</div>
               <div>
                 <h4>Mănăstirea Franciscană</h4>
@@ -876,7 +1096,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d2_palm">
               <div class="stop-icon">🌊</div>
               <div>
                 <h4>Palmižana / Vinogradišće Bay</h4>
@@ -889,7 +1109,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d2_palm">
               <div class="stop-icon">🌺</div>
               <div>
                 <h4>Grădina botanică Meneghello, Palmižana</h4>
@@ -901,7 +1121,7 @@
               </div>
             </div>
           </div>
-          <div class="overnight">
+          <div class="overnight" data-wx="d2_palm">
             <div class="stop-icon">🌙</div>
             <div>
               <h4>Înoptare — Vinogradišće Bay (geamanduri Laganini)</h4>
@@ -934,14 +1154,15 @@
             </div>
             <div class="sailing">~35 NM • ~6 h de zi</div>
           </div>
+          <div class="day-wx" data-wx-ids="d3_blue,d3_stiniva,d3_vis"></div>
           <div class="day-stays">
-            <div class="stay-chip"><small>Oprire</small><b>Blue Cave</b><span>~10:00 · 45–75 min</span></div>
-            <div class="stay-chip"><small>Oprire</small><b>Green Cave + Stiniva</b><span>~1.5–2 h total</span></div>
-            <div class="stay-chip"><small>Oprire</small><b>Tunel submarine</b><span>~30–60 min</span></div>
-            <div class="stay-chip night"><small>Înoptare</small><b>Vis Town</b><span>16:00 → mie 09:00 · ~17 h</span></div>
+            <div class="stay-chip" data-wx="d3_blue"><small>Oprire</small><b>Blue Cave</b><span>~10:00 · 45–75 min</span></div>
+            <div class="stay-chip" data-wx="d3_stiniva"><small>Oprire</small><b>Green Cave + Stiniva</b><span>~1.5–2 h total</span></div>
+            <div class="stay-chip" data-wx="d3_tunnel"><small>Oprire</small><b>Tunel submarine</b><span>~30–60 min</span></div>
+            <div class="stay-chip night" data-wx="d3_vis"><small>Înoptare</small><b>Vis Town</b><span>16:00 → mie 09:00 · ~17 h</span></div>
           </div>
           <div class="stops">
-            <div class="stop">
+            <div class="stop" data-wx="d3_blue">
               <div class="stop-icon">🔵</div>
               <div>
                 <h4>Blue Cave, Biševo</h4>
@@ -953,7 +1174,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d3_green">
               <div class="stop-icon">🟢</div>
               <div>
                 <h4>Green Cave, Ravnik</h4>
@@ -964,7 +1185,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d3_stiniva">
               <div class="stop-icon">🏖️</div>
               <div>
                 <h4>Stiniva Cove</h4>
@@ -976,7 +1197,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d3_tunnel">
               <div class="stop-icon">🛥️</div>
               <div>
                 <h4>Submarine Tunnel, Rogačić / Parja</h4>
@@ -987,7 +1208,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d3_vis">
               <div class="stop-icon">🧱</div>
               <div>
                 <h4>Fort George</h4>
@@ -999,7 +1220,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d3_vis">
               <div class="stop-icon">🍷</div>
               <div>
                 <h4>Degustare de vin Vugava</h4>
@@ -1011,7 +1232,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d3_dinner">
               <div class="stop-icon">🍽️</div>
               <div>
                 <h4>Konoba Lola, Vis Town</h4>
@@ -1023,7 +1244,7 @@
               </div>
             </div>
           </div>
-          <div class="overnight">
+          <div class="overnight" data-wx="d3_vis">
             <div class="stop-icon">🌙</div>
             <div>
               <h4>Înoptare — Portul Vis Town</h4>
@@ -1055,12 +1276,13 @@
             </div>
             <div class="sailing">~35 NM • ~5.5 h de zi</div>
           </div>
+          <div class="day-wx" data-wx-ids="d4_leave,d4_proizd,d4_korcula"></div>
           <div class="day-stays">
-            <div class="stay-chip"><small>Oprire</small><b>Otočić Proizd</b><span>~12:30 · 1–2 h</span></div>
-            <div class="stay-chip night"><small>Înoptare</small><b>ACI Korčula</b><span>17:00 → joi 07:00 · ~14 h</span></div>
+            <div class="stay-chip" data-wx="d4_proizd"><small>Oprire</small><b>Otočić Proizd</b><span>~12:30 · 1–2 h</span></div>
+            <div class="stay-chip night" data-wx="d4_korcula"><small>Înoptare</small><b>ACI Korčula</b><span>17:00 → joi 07:00 · ~14 h</span></div>
           </div>
           <div class="stops">
-            <div class="stop">
+            <div class="stop" data-wx="d4_proizd">
               <div class="stop-icon">🤿</div>
               <div>
                 <h4>Otočić Proizd</h4>
@@ -1071,7 +1293,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d4_korcula">
               <div class="stop-icon">🏛️</div>
               <div>
                 <h4>Korčula Old Town</h4>
@@ -1083,7 +1305,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d4_korcula">
               <div class="stop-icon">⛪</div>
               <div>
                 <h4>St. Mark's Cathedral</h4>
@@ -1095,7 +1317,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d4_korcula">
               <div class="stop-icon">🧭</div>
               <div>
                 <h4>Casa & turnul lui Marco Polo</h4>
@@ -1107,7 +1329,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d4_sunset">
               <div class="stop-icon">🍸</div>
               <div>
                 <h4>Massimo Cocktail Bar (turnul Zakerjan)</h4>
@@ -1119,7 +1341,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d4_dinner">
               <div class="stop-icon">🍽️</div>
               <div>
                 <h4>Konoba Aterina</h4>
@@ -1131,7 +1353,7 @@
               </div>
             </div>
           </div>
-          <div class="overnight">
+          <div class="overnight" data-wx="d4_korcula">
             <div class="stop-icon">🌙</div>
             <div>
               <h4>Înoptare — ACI Marina Korčula</h4>
@@ -1163,12 +1385,13 @@
             </div>
             <div class="sailing">~55 NM • 8–9 h de zi</div>
           </div>
+          <div class="day-wx" data-wx-ids="d5_leave,d5_maslinica,d5_kremik"></div>
           <div class="day-stays">
-            <div class="stay-chip"><small>Oprire</small><b>Maslinica</b><span>~13:00 · 1–1.5 h prânz</span></div>
-            <div class="stay-chip night"><small>Înoptare</small><b>Marina Kremik</b><span>18:00 → vin 08:00 · ~14 h</span></div>
+            <div class="stay-chip" data-wx="d5_maslinica"><small>Oprire</small><b>Maslinica</b><span>~13:00 · 1–1.5 h prânz</span></div>
+            <div class="stay-chip night" data-wx="d5_kremik"><small>Înoptare</small><b>Marina Kremik</b><span>18:00 → vin 08:00 · ~14 h</span></div>
           </div>
           <div class="stops">
-            <div class="stop">
+            <div class="stop" data-wx="d5_maslinica">
               <div class="stop-icon">⚓</div>
               <div>
                 <h4>Maslinica, Šolta — pauză de prânz</h4>
@@ -1180,7 +1403,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d5_kremik">
               <div class="stop-icon">🏘️</div>
               <div>
                 <h4>Primošten Old Town</h4>
@@ -1192,7 +1415,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d5_sunset">
               <div class="stop-icon">⛪</div>
               <div>
                 <h4>Church of St. George</h4>
@@ -1204,7 +1427,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d5_kremik">
               <div class="stop-icon">🍇</div>
               <div>
                 <h4>Viile Bucavac + Gospa od Loreta</h4>
@@ -1217,7 +1440,7 @@
               </div>
             </div>
           </div>
-          <div class="overnight">
+          <div class="overnight" data-wx="d5_kremik">
             <div class="stop-icon">🌙</div>
             <div>
               <h4>Înoptare — Marina Kremik (sau portul Primošten)</h4>
@@ -1250,13 +1473,14 @@
             </div>
             <div class="sailing">~40 NM • predare seara</div>
           </div>
+          <div class="day-wx" data-wx-ids="d6_leave,d6_fort,d6_sukosan"></div>
           <div class="day-stays">
-            <div class="stay-chip"><small>Oprire</small><b>Sf. Nicolae</b><span>~11:00 · 15–20 min de pe apă</span></div>
-            <div class="stay-chip night"><small>Predare</small><b>Marina Dalmacija</b><span>~18:00 · seara</span></div>
-            <div class="stay-chip"><small>Pe uscat</small><b>Zadar</b><span>după predare · ~1.5–2 h</span></div>
+            <div class="stay-chip" data-wx="d6_fort"><small>Oprire</small><b>Sf. Nicolae</b><span>~11:00 · 15–20 min de pe apă</span></div>
+            <div class="stay-chip night" data-wx="d6_sukosan"><small>Predare</small><b>Marina Dalmacija</b><span>~18:00 · seara</span></div>
+            <div class="stay-chip" data-wx="d6_zadar"><small>Pe uscat</small><b>Zadar</b><span>după predare · ~1.5–2 h</span></div>
           </div>
           <div class="stops">
-            <div class="stop">
+            <div class="stop" data-wx="d6_fort">
               <div class="stop-icon">🛡️</div>
               <div>
                 <h4>Fortăreața Sf. Nicolae, Šibenik (de pe apă)</h4>
@@ -1268,7 +1492,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d6_zadar">
               <div class="stop-icon">🏺</div>
               <div>
                 <h4>Roman Forum + Biserica Sf. Donat, Zadar</h4>
@@ -1280,7 +1504,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d6_zadar">
               <div class="stop-icon">🎶</div>
               <div>
                 <h4>Sea Organ</h4>
@@ -1292,7 +1516,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d6_sunset">
               <div class="stop-icon">☀️</div>
               <div>
                 <h4>Greeting to the Sun</h4>
@@ -1304,7 +1528,7 @@
                 </div>
               </div>
             </div>
-            <div class="stop">
+            <div class="stop" data-wx="d6_zadar">
               <div class="stop-icon">🚪</div>
               <div>
                 <h4>Land Gate + Piața celor Cinci Fântâni</h4>
@@ -1318,7 +1542,7 @@
               </div>
             </div>
           </div>
-          <div class="overnight">
+          <div class="overnight" data-wx="d6_sukosan">
             <div class="stop-icon">⚓</div>
             <div>
               <h4>Predare — D-Marin Marina Dalmacija, Sukošan</h4>
@@ -1343,6 +1567,7 @@
 
   <footer class="wrap footer">
     Traseu orientativ pentru planificare. Navigăm doar ziua. Distanțele, danele și accesul în golfuri trebuie verificate înainte de plecare în chartplotter / Navionics, la VHF 17 și în funcție de vreme.
+    Prognoza (Open-Meteo) e pe ora planificată în fiecare loc; se actualizează la deschiderea paginii.
   </footer>
 
   <script>
@@ -1358,104 +1583,218 @@
       optional: { label: 'Alternativă',      icon: '✦',  color: '#c9a227' }
     };
 
+    // Exact berth / anchorage GPS (lat, lng) — not town centres.
+    const GPS = {
+      sukosan:      [44.05033, 15.29938], // D-Marin Dalmacija, approach
+      blueLagoon:   [43.43953, 16.17448], // Uvala Krknjaš, between the islets
+      trogirAci:    [43.51386, 16.24842], // ACI Trogir, Čiovo
+      hvarPort:     [43.16920, 16.44220], // Hvar harbour basin, south of the riva
+      vinogradisce: [43.15480, 16.39050], // Vinogradišće bay water, south of the beach
+      mostir:       [43.08500, 16.70250], // Mostir Bay, Šćedro
+      blueCave:     [42.98150, 16.02550], // waiting water, east of Modra špilja
+      greenCave:    [43.00400, 16.22800], // open water south of Ravnik
+      stiniva:      [43.00750, 16.18400], // open water south of the cove, not the cliff gap
+      rogacic:      [43.08250, 16.18900], // Rogačić approach from the north
+      visPort:      [43.06350, 16.19100], // Vis Town harbour water, off the quay
+      proizd:       [42.98220, 16.61850], // water south of Proizd, not the beach
+      korculaAci:   [42.96060, 17.13680], // ACI Korčula basin
+      lumbarda:     [42.92200, 17.17060], // Lumbarda harbour
+      maslinica:    [43.39783, 16.20533], // Martinis Marchi
+      kremik:       [43.56953, 15.93822], // Marina Kremik (not Primosten town)
+      rogoznica:    [43.52680, 15.97350], // Marina Frapa
+      stNicholas:   [43.72150, 15.85470], // fortress on Ljuljevac
+      stNicholasSea:[43.72100, 15.85150], // viewing from the channel
+      telascica:    [43.88850, 15.16500], // inner bay anchorage
+      seaOrgan:     [44.11721, 15.21980]  // Zadar Sea Organ
+    };
+
+    const WX = {
+      d1_start:     { label: '07:00', place: 'Sukošan',     time: '2026-09-13T07:00:00+02:00', coords: GPS.sukosan },
+      d1_lagoon:    { label: '11:00', place: 'Blue Lagoon', time: '2026-09-13T11:00:00+02:00', coords: GPS.blueLagoon },
+      d1_trogir:    { label: '15:00', place: 'Trogir',      time: '2026-09-13T15:00:00+02:00', coords: GPS.trogirAci },
+      d1_evening:   { label: '18:00', place: 'Trogir',      time: '2026-09-13T18:00:00+02:00', coords: GPS.trogirAci },
+      d1_dinner:    { label: '20:00', place: 'Trogir',      time: '2026-09-13T20:00:00+02:00', coords: GPS.trogirAci },
+      d2_leave:     { label: '09:00', place: 'Trogir',      time: '2026-09-14T09:00:00+02:00', coords: GPS.trogirAci },
+      d2_hvar:      { label: '14:00', place: 'Hvar',        time: '2026-09-14T14:00:00+02:00', coords: GPS.hvarPort },
+      d2_palm:      { label: '17:30', place: 'Palmižana',   time: '2026-09-14T17:30:00+02:00', coords: GPS.vinogradisce },
+      d2_alt:       { label: '18:00', place: 'Šćedro',      time: '2026-09-14T18:00:00+02:00', coords: GPS.mostir },
+      d3_leave:     { label: '07:30', place: 'Palmižana',   time: '2026-09-15T07:30:00+02:00', coords: GPS.vinogradisce },
+      d3_blue:      { label: '10:00', place: 'Blue Cave',   time: '2026-09-15T10:00:00+02:00', coords: GPS.blueCave },
+      d3_green:     { label: '11:15', place: 'Green Cave',  time: '2026-09-15T11:15:00+02:00', coords: GPS.greenCave },
+      d3_stiniva:   { label: '12:15', place: 'Stiniva',     time: '2026-09-15T12:15:00+02:00', coords: GPS.stiniva },
+      d3_tunnel:    { label: '14:30', place: 'Rogačić',     time: '2026-09-15T14:30:00+02:00', coords: GPS.rogacic },
+      d3_vis:       { label: '16:00', place: 'Vis',         time: '2026-09-15T16:00:00+02:00', coords: GPS.visPort },
+      d3_dinner:    { label: '20:00', place: 'Vis',         time: '2026-09-15T20:00:00+02:00', coords: GPS.visPort },
+      d4_leave:     { label: '09:00', place: 'Vis',         time: '2026-09-16T09:00:00+02:00', coords: GPS.visPort },
+      d4_proizd:    { label: '12:30', place: 'Proizd',      time: '2026-09-16T12:30:00+02:00', coords: GPS.proizd },
+      d4_korcula:   { label: '17:00', place: 'Korčula',     time: '2026-09-16T17:00:00+02:00', coords: GPS.korculaAci },
+      d4_lumbarda:  { label: '15:30', place: 'Lumbarda',    time: '2026-09-16T15:30:00+02:00', coords: GPS.lumbarda },
+      d4_sunset:    { label: '19:00', place: 'Korčula',     time: '2026-09-16T19:00:00+02:00', coords: GPS.korculaAci },
+      d4_dinner:    { label: '20:30', place: 'Korčula',     time: '2026-09-16T20:30:00+02:00', coords: GPS.korculaAci },
+      d5_leave:     { label: '07:00', place: 'Korčula',     time: '2026-09-17T07:00:00+02:00', coords: GPS.korculaAci },
+      d5_maslinica: { label: '13:00', place: 'Maslinica',   time: '2026-09-17T13:00:00+02:00', coords: GPS.maslinica },
+      d5_kremik:    { label: '18:00', place: 'Kremik',      time: '2026-09-17T18:00:00+02:00', coords: GPS.kremik },
+      d5_rogo:      { label: '18:00', place: 'Rogoznica',   time: '2026-09-17T18:00:00+02:00', coords: GPS.rogoznica },
+      d5_sunset:    { label: '19:00', place: 'Primošten',   time: '2026-09-17T19:00:00+02:00', coords: GPS.kremik },
+      d6_leave:     { label: '08:00', place: 'Kremik',      time: '2026-09-18T08:00:00+02:00', coords: GPS.kremik },
+      d6_fort:      { label: '11:00', place: 'Sf. Nicolae', time: '2026-09-18T11:00:00+02:00', coords: GPS.stNicholasSea },
+      d6_tela:      { label: '14:00', place: 'Telašćica',   time: '2026-09-18T14:00:00+02:00', coords: GPS.telascica },
+      d6_sukosan:   { label: '18:00', place: 'Sukošan',     time: '2026-09-18T18:00:00+02:00', coords: GPS.sukosan },
+      d6_zadar:     { label: '19:30', place: 'Zadar',       time: '2026-09-18T19:30:00+02:00', coords: GPS.seaOrgan },
+      d6_sunset:    { label: '19:15', place: 'Zadar',       time: '2026-09-18T19:15:00+02:00', coords: GPS.seaOrgan }
+    };
+
+    const wxStore = new Map();
+
     const stops = [
-      { name: 'Sukošan — D-Marin Marina Dalmacija', day: 'Start duminică 07:00 / predare vineri ~18:00', coords: [44.0450, 15.3020], anchor: 'day-1', type: 'marina', night: 'Predare vineri seara', links: [
+      { name: 'Sukošan — D-Marin Marina Dalmacija', day: 'Start duminică 07:00 / predare vineri ~18:00', coords: GPS.sukosan, anchor: 'day-1', type: 'marina', night: 'Predare vineri seara', wx: ['d1_start', 'd6_sukosan'], links: [
         { label: 'Marina', href: 'https://www.d-marin.com/en/marinas/dalmacija/' }
       ]},
-      { name: 'Blue Lagoon, Krknjaši', day: 'Ziua 1 — oprire de înot', coords: [43.4436, 16.1470], anchor: 'day-1', type: 'swim', stay: '1–1.5 h', links: [
+      { name: 'Blue Lagoon, Krknjaši', day: 'Ziua 1 — oprire de înot', coords: GPS.blueLagoon, anchor: 'day-1', type: 'swim', stay: '1–1.5 h', wx: 'd1_lagoon', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Drvenik_Veli' }
       ]},
-      { name: 'Trogir', day: 'Ziua 1', coords: [43.5164, 16.2502], anchor: 'day-1', type: 'town', night: 'ACI Trogir · 15:00–09:00 (~18 h)', links: [
+      { name: 'Trogir — ACI Marina', day: 'Ziua 1', coords: GPS.trogirAci, anchor: 'day-1', type: 'town', night: 'ACI Trogir · 15:00–09:00 (~18 h)', wx: 'd1_trogir', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Trogir' },
         { label: 'ACI Trogir', href: 'https://aci-marinas.com/marina/aci-trogir/' }
       ]},
-      { name: 'Hvar', day: 'Ziua 2', coords: [43.1729, 16.4411], anchor: 'day-2', type: 'town', stay: '~3 h (14:00–17:00)', links: [
+      { name: 'Hvar — portul orașului', day: 'Ziua 2', coords: GPS.hvarPort, anchor: 'day-2', type: 'town', stay: '~3 h (14:00–17:00)', wx: 'd2_hvar', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Hvar_(town)' },
         { label: 'Visit Hvar', href: 'https://visithvar.hr/see-and-do/cultural-sights/' }
       ]},
-      { name: 'Palmižana', day: 'Ziua 2 — înoptare', coords: [43.1608, 16.3913], anchor: 'day-2', type: 'swim', night: 'Vinogradišće / Laganini · 17:30–07:30 (~14 h)', links: [
+      { name: 'Palmižana — Vinogradišće', day: 'Ziua 2 — înoptare', coords: GPS.vinogradisce, anchor: 'day-2', type: 'swim', night: 'Vinogradišće / Laganini · 17:30–07:30 (~14 h)', wx: 'd2_palm', links: [
         { label: 'Laganini', href: 'https://laganinihvar.com/' },
         { label: 'ACI Palmižana', href: 'https://aci-marinas.com/marina/aci-palmizana/' }
       ]},
-      { name: 'Mostir Bay, Šćedro', day: 'Alternativă Ziua 2', coords: [43.0838, 16.7018], anchor: 'day-2', type: 'optional', links: [
+      { name: 'Mostir Bay, Šćedro', day: 'Alternativă Ziua 2', coords: GPS.mostir, anchor: 'day-2', type: 'optional', wx: 'd2_alt', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/%C5%A0%C4%87edro' }
       ]},
-      { name: 'Blue Cave, Biševo', day: 'Ziua 3', coords: [42.9801, 16.0216], anchor: 'day-3', type: 'cave', stay: '45–75 min', links: [
+      { name: 'Blue Cave, Biševo', day: 'Ziua 3', coords: GPS.blueCave, anchor: 'day-3', type: 'cave', stay: '45–75 min', wx: 'd3_blue', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Blue_Grotto_(Bi%C5%A1evo)' },
         { label: 'Site oficial', href: 'https://bluecave-bisevo.com/en/' }
       ]},
-      { name: 'Green Cave, Ravnik', day: 'Ziua 3', coords: [43.0429, 16.2405], anchor: 'day-3', type: 'cave', stay: '30–45 min', links: [
+      { name: 'Green Cave, Ravnik', day: 'Ziua 3', coords: GPS.greenCave, anchor: 'day-3', type: 'cave', stay: '30–45 min', wx: 'd3_green', links: [
         { label: 'Geopark Vis', href: 'https://www.geopark-vis.com/eng/zasticeni-spomenici-prirode-i-znacajni-krajobrazi' }
       ]},
-      { name: 'Stiniva Cove', day: 'Ziua 3', coords: [43.0260, 16.1650], anchor: 'day-3', type: 'swim', stay: '45–60 min', links: [
+      { name: 'Stiniva Cove', day: 'Ziua 3', coords: GPS.stiniva, anchor: 'day-3', type: 'swim', stay: '45–60 min', wx: 'd3_stiniva', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Vis_(island)' },
         { label: 'Geopark Vis', href: 'https://www.geopark-vis.com/eng/zasticeni-spomenici-prirode-i-znacajni-krajobrazi' }
       ]},
-      { name: 'Rogačić / Submarine Tunnel', day: 'Ziua 3', coords: [43.0797, 16.1574], anchor: 'day-3', type: 'military', stay: '30–60 min', links: [
+      { name: 'Rogačić / Submarine Tunnel', day: 'Ziua 3', coords: GPS.rogacic, anchor: 'day-3', type: 'military', stay: '30–60 min', wx: 'd3_tunnel', links: [
         { label: 'Visit Vis', href: 'https://www.vis-tourism.com/en/' }
       ]},
-      { name: 'Vis Town', day: 'Ziua 3 — înoptare', coords: [43.0617, 16.1837], anchor: 'day-3', type: 'town', night: 'Port Vis Town · 16:00–09:00 (~17 h)', links: [
+      { name: 'Vis Town — port', day: 'Ziua 3 — înoptare', coords: GPS.visPort, anchor: 'day-3', type: 'town', night: 'Port Vis Town · 16:00–09:00 (~17 h)', wx: 'd3_vis', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Vis_(town)' },
         { label: 'Visit Vis', href: 'https://www.vis-tourism.com/en/' }
       ]},
-      { name: 'Proizd', day: 'Ziua 4', coords: [42.9859, 16.6187], anchor: 'day-4', type: 'swim', stay: '1–2 h', links: [
+      { name: 'Proizd', day: 'Ziua 4', coords: GPS.proizd, anchor: 'day-4', type: 'swim', stay: '1–2 h', wx: 'd4_proizd', links: [
         { label: 'Wikipedia', href: 'https://hr.wikipedia.org/wiki/Proizd' }
       ]},
-      { name: 'Korčula', day: 'Ziua 4 — înoptare', coords: [42.9597, 17.1355], anchor: 'day-4', type: 'town', night: 'ACI Korčula · 17:00–07:00 (~14 h)', links: [
+      { name: 'Korčula — ACI Marina', day: 'Ziua 4 — înoptare', coords: GPS.korculaAci, anchor: 'day-4', type: 'town', night: 'ACI Korčula · 17:00–07:00 (~14 h)', wx: 'd4_korcula', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Kor%C4%8Dula_(town)' },
         { label: 'ACI Korčula', href: 'https://aci-marinas.com/marina/aci-korcula/' }
       ]},
-      { name: 'Lumbarda (vin Grk)', day: 'Opțional Ziua 4', coords: [42.9214, 17.1690], anchor: 'day-4', type: 'wine', links: [
+      { name: 'Lumbarda (vin Grk)', day: 'Opțional Ziua 4', coords: GPS.lumbarda, anchor: 'day-4', type: 'wine', wx: 'd4_lumbarda', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Lumbarda' },
         { label: 'Bire', href: 'https://bire.hr/' }
       ]},
-      { name: 'Maslinica, Šolta', day: 'Ziua 5 — pauză de prânz', coords: [43.3966, 16.2058], anchor: 'day-5', type: 'marina', stay: '1–1.5 h', links: [
+      { name: 'Maslinica — Martinis Marchi', day: 'Ziua 5 — pauză de prânz', coords: GPS.maslinica, anchor: 'day-5', type: 'marina', stay: '1–1.5 h', wx: 'd5_maslinica', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/%C5%A0olta' },
         { label: 'Martinis Marchi', href: 'https://www.martinis-marchi.com/' }
       ]},
-      { name: 'Primošten', day: 'Ziua 5 — înoptare', coords: [43.5860, 15.9230], anchor: 'day-5', type: 'town', night: 'Marina Kremik · 18:00–08:00 (~14 h)', links: [
+      { name: 'Primošten — Marina Kremik', day: 'Ziua 5 — înoptare', coords: GPS.kremik, anchor: 'day-5', type: 'town', night: 'Marina Kremik · 18:00–08:00 (~14 h)', wx: 'd5_kremik', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Primo%C5%A1ten' },
         { label: 'Marina Kremik', href: 'https://marina-kremik.com/' }
       ]},
-      { name: 'Rogoznica', day: 'Alternativă Ziua 5', coords: [43.5245, 15.9703], anchor: 'day-5', type: 'optional', links: [
+      { name: 'Rogoznica', day: 'Alternativă Ziua 5', coords: GPS.rogoznica, anchor: 'day-5', type: 'optional', wx: 'd5_rogo', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Rogoznica' }
       ]},
-      { name: 'Fortăreața Sf. Nicolae, Šibenik', day: 'Ziua 6 — de pe apă', coords: [43.7229, 15.8514], anchor: 'day-6', type: 'fortress', links: [
+      { name: 'Fortăreața Sf. Nicolae, Šibenik', day: 'Ziua 6 — de pe apă', coords: GPS.stNicholas, anchor: 'day-6', type: 'fortress', wx: 'd6_fort', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/St._Nicholas_Fortress' },
         { label: 'UNESCO', href: 'https://whc.unesco.org/en/list/1533' }
       ]},
-      { name: 'Telašćica, Dugi Otok', day: 'Nu overnight — doar detur dacă e timp vineri', coords: [43.8919, 15.1734], anchor: 'day-6', type: 'optional', links: [
+      { name: 'Telašćica, Dugi Otok', day: 'Nu overnight — doar detur dacă e timp vineri', coords: GPS.telascica, anchor: 'day-6', type: 'optional', wx: 'd6_tela', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Tela%C5%A1%C4%87ica' },
         { label: 'Parc natural', href: 'https://pp-telascica.hr/?lang=en' }
       ]},
-      { name: 'Zadar (după predarea bărcii)', day: 'Vineri seara — pe uscat', coords: [44.1194, 15.2314], anchor: 'day-6', type: 'land', links: [
+      { name: 'Zadar — Sea Organ', day: 'Vineri seara — pe uscat', coords: GPS.seaOrgan, anchor: 'day-6', type: 'land', wx: 'd6_zadar', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Zadar' },
         { label: 'Visit Zadar', href: 'https://zadar.travel/' }
       ]}
     ];
 
+    // via[] = seaway waypoints from the previous stop. Stay in open water, well off headlands.
     const journey = [
-      { name: 'Sukošan — Marina Dalmacija', note: 'Plecare foarte dimineața', coords: [44.0450, 15.3020], time: '2026-09-13T07:00:00+02:00' },
-      { name: 'Blue Lagoon, Krknjaši', note: 'Oprire de înot', coords: [43.4436, 16.1470], time: '2026-09-13T11:00:00+02:00' },
-      { name: 'Trogir', note: 'Sosire • noapte în port', coords: [43.5164, 16.2502], time: '2026-09-13T15:00:00+02:00' },
-      { name: 'Trogir', note: 'Plecare spre Hvar', coords: [43.5164, 16.2502], time: '2026-09-14T09:00:00+02:00' },
-      { name: 'Hvar', note: 'Fortica și orașul vechi', coords: [43.1729, 16.4411], time: '2026-09-14T14:00:00+02:00' },
-      { name: 'Palmižana', note: 'Golf • noapte la ancoră', coords: [43.1608, 16.3913], time: '2026-09-14T17:30:00+02:00' },
-      { name: 'Palmižana', note: 'Plecare spre Biševo', coords: [43.1608, 16.3913], time: '2026-09-15T07:30:00+02:00' },
-      { name: 'Blue Cave, Biševo', note: 'Lumina albastră', coords: [42.9801, 16.0216], time: '2026-09-15T10:00:00+02:00' },
-      { name: 'Green Cave, Ravnik', note: 'Înot în grotă', coords: [43.0429, 16.2405], time: '2026-09-15T11:15:00+02:00' },
-      { name: 'Stiniva Cove', note: 'Plajă între faleze', coords: [43.0260, 16.1650], time: '2026-09-15T12:15:00+02:00' },
-      { name: 'Tunelul de submarine', note: 'Rogačić / Parja', coords: [43.0797, 16.1574], time: '2026-09-15T14:30:00+02:00' },
-      { name: 'Vis Town', note: 'Sosire • noapte', coords: [43.0617, 16.1837], time: '2026-09-15T16:00:00+02:00' },
-      { name: 'Vis Town', note: 'Plecare spre Korčula', coords: [43.0617, 16.1837], time: '2026-09-16T09:00:00+02:00' },
-      { name: 'Otočić Proizd', note: 'Snorkeling', coords: [42.9859, 16.6187], time: '2026-09-16T12:30:00+02:00' },
-      { name: 'Korčula', note: 'Oraș medieval • noapte', coords: [42.9597, 17.1355], time: '2026-09-16T17:00:00+02:00' },
-      { name: 'Korčula', note: 'Plecare — zi lungă', coords: [42.9597, 17.1355], time: '2026-09-17T07:00:00+02:00' },
-      { name: 'Maslinica, Šolta', note: 'Pauză de prânz', coords: [43.3966, 16.2058], time: '2026-09-17T13:00:00+02:00' },
-      { name: 'Primošten', note: 'Sosire • noapte', coords: [43.5860, 15.9230], time: '2026-09-17T18:00:00+02:00' },
-      { name: 'Primošten', note: 'Retur spre Sukošan', coords: [43.5860, 15.9230], time: '2026-09-18T08:00:00+02:00' },
-      { name: 'Fortăreața Sf. Nicolae', note: 'De pe apă', coords: [43.7229, 15.8514], time: '2026-09-18T11:00:00+02:00' },
-      { name: 'Sukošan — predare', note: 'Marina Dalmacija • seara', coords: [44.0450, 15.3020], time: '2026-09-18T18:00:00+02:00' }
+      { name: 'Sukošan — Marina Dalmacija', note: 'Plecare foarte dimineața', coords: GPS.sukosan, time: '2026-09-13T07:00:00+02:00' },
+      { name: 'Blue Lagoon, Krknjaši', note: 'Oprire de înot', coords: GPS.blueLagoon, time: '2026-09-13T11:00:00+02:00', via: [
+        [44.0480, 15.2880], [44.0200, 15.3000], [43.9800, 15.3450], [43.9400, 15.3950],
+        [43.9050, 15.4300], [43.8600, 15.4550], [43.8100, 15.4900], [43.7600, 15.5300],
+        [43.7100, 15.5900], [43.6600, 15.6800], [43.6200, 15.7800], [43.5800, 15.8800],
+        [43.5300, 15.9800], [43.4900, 16.0700], [43.4600, 16.1300], [43.4480, 16.1600]
+      ]},
+      { name: 'Trogir — ACI Marina', note: 'Sosire • noapte în port', coords: GPS.trogirAci, time: '2026-09-13T15:00:00+02:00', via: [
+        [43.4450, 16.1850], [43.4700, 16.1900], [43.4950, 16.1950], [43.5080, 16.2000],
+        [43.5105, 16.2200], [43.5112, 16.2380]
+      ]},
+      { name: 'Trogir — ACI Marina', note: 'Plecare spre Hvar', coords: GPS.trogirAci, time: '2026-09-14T09:00:00+02:00' },
+      { name: 'Hvar — portul orașului', note: 'Fortica și orașul vechi', coords: GPS.hvarPort, time: '2026-09-14T14:00:00+02:00', via: [
+        [43.5112, 16.2380], [43.5105, 16.2200], [43.5080, 16.1980], [43.4800, 16.1900],
+        [43.4300, 16.1850], [43.3800, 16.1800], [43.3300, 16.1900], [43.2800, 16.2100],
+        [43.2300, 16.2500], [43.1950, 16.2800], [43.1600, 16.3000], [43.1450, 16.3400],
+        [43.1440, 16.3900], [43.1500, 16.4320], [43.1665, 16.4425]
+      ]},
+      { name: 'Palmižana — Vinogradišće', note: 'Golf • noapte la ancoră', coords: GPS.vinogradisce, time: '2026-09-14T17:30:00+02:00', via: [
+        [43.1665, 16.4425], [43.1500, 16.4320], [43.1440, 16.4100], [43.1460, 16.3950]
+      ]},
+      { name: 'Palmižana — Vinogradišće', note: 'Plecare spre Biševo', coords: GPS.vinogradisce, time: '2026-09-15T07:30:00+02:00' },
+      { name: 'Blue Cave, Biševo', note: 'Lumina albastră', coords: GPS.blueCave, time: '2026-09-15T10:00:00+02:00', via: [
+        [43.1440, 16.3750], [43.1400, 16.3000], [43.1360, 16.2000], [43.1320, 16.1000],
+        [43.1280, 16.0200], [43.0900, 15.9900], [43.0400, 15.9850], [42.9950, 16.0050],
+        [42.9880, 16.0200]
+      ]},
+      { name: 'Green Cave, Ravnik', note: 'Înot în grotă', coords: GPS.greenCave, time: '2026-09-15T11:15:00+02:00', via: [
+        [42.9680, 16.0350], [42.9450, 16.0800], [42.9100, 16.1500], [42.9000, 16.2100],
+        [42.9100, 16.2650], [42.9500, 16.2700], [42.9800, 16.2550], [42.9950, 16.2400]
+      ]},
+      { name: 'Stiniva Cove', note: 'Plajă între faleze', coords: GPS.stiniva, time: '2026-09-15T12:15:00+02:00', via: [
+        [42.9980, 16.2200], [42.9880, 16.2000], [42.9880, 16.1840]
+      ]},
+      { name: 'Tunelul de submarine', note: 'Rogačić / Parja', coords: GPS.rogacic, time: '2026-09-15T14:30:00+02:00', via: [
+        [42.9880, 16.1840], [42.9750, 16.2100], [42.9650, 16.2600], [42.9700, 16.3200],
+        [43.0200, 16.3300], [43.0700, 16.3200], [43.1150, 16.2800], [43.1200, 16.2200],
+        [43.1050, 16.1950], [43.0920, 16.1910]
+      ]},
+      { name: 'Vis Town — port', note: 'Sosire • noapte', coords: GPS.visPort, time: '2026-09-15T16:00:00+02:00', via: [
+        [43.0900, 16.2000], [43.0880, 16.2080], [43.0760, 16.2020], [43.0670, 16.1960]
+      ]},
+      { name: 'Vis Town — port', note: 'Plecare spre Korčula', coords: GPS.visPort, time: '2026-09-16T09:00:00+02:00' },
+      { name: 'Otočić Proizd', note: 'Snorkeling', coords: GPS.proizd, time: '2026-09-16T12:30:00+02:00', via: [
+        [43.0670, 16.1960], [43.0780, 16.2080], [43.1000, 16.2450], [43.0950, 16.3300],
+        [43.0650, 16.4300], [43.0350, 16.5100], [43.0050, 16.5700], [42.9880, 16.6000]
+      ]},
+      { name: 'Korčula — ACI Marina', note: 'Oraș medieval • noapte', coords: GPS.korculaAci, time: '2026-09-16T17:00:00+02:00', via: [
+        [42.9900, 16.6500], [43.0020, 16.7800], [43.0080, 16.9000], [43.0050, 17.0200],
+        [42.9950, 17.1000], [42.9800, 17.1400], [42.9700, 17.1480], [42.9650, 17.1450]
+      ]},
+      { name: 'Korčula — ACI Marina', note: 'Plecare — zi lungă', coords: GPS.korculaAci, time: '2026-09-17T07:00:00+02:00' },
+      { name: 'Maslinica — Martinis Marchi', note: 'Pauză de prânz', coords: GPS.maslinica, time: '2026-09-17T13:00:00+02:00', via: [
+        [42.9650, 17.1450], [42.9700, 17.1480], [42.9800, 17.1400], [43.0000, 17.0000],
+        [43.0080, 16.8600], [43.0150, 16.7000], [43.0250, 16.5400], [43.0500, 16.4000],
+        [43.0850, 16.3100], [43.1300, 16.2750], [43.1850, 16.2650], [43.2400, 16.2550],
+        [43.3000, 16.2200], [43.3500, 16.1900], [43.3800, 16.1900]
+      ]},
+      { name: 'Primošten — Marina Kremik', note: 'Sosire • noapte', coords: GPS.kremik, time: '2026-09-17T18:00:00+02:00', via: [
+        [43.4000, 16.1750], [43.4150, 16.1000], [43.4400, 16.0300], [43.4900, 15.9700],
+        [43.5400, 15.9450]
+      ]},
+      { name: 'Primošten — Marina Kremik', note: 'Retur spre Sukošan', coords: GPS.kremik, time: '2026-09-18T08:00:00+02:00' },
+      { name: 'Fortăreața Sf. Nicolae', note: 'De pe apă', coords: GPS.stNicholasSea, time: '2026-09-18T11:00:00+02:00', via: [
+        [43.5850, 15.9150], [43.6300, 15.8800], [43.6800, 15.8580], [43.7080, 15.8500]
+      ]},
+      { name: 'Sukošan — predare', note: 'Marina Dalmacija • seara', coords: GPS.sukosan, time: '2026-09-18T18:00:00+02:00', via: [
+        [43.7280, 15.8250], [43.7450, 15.7400], [43.7550, 15.6600], [43.7700, 15.5800],
+        [43.8000, 15.5200], [43.8400, 15.4800], [43.8800, 15.4500], [43.9200, 15.4100],
+        [43.9600, 15.3650], [44.0000, 15.3250], [44.0300, 15.3000], [44.0480, 15.2880]
+      ]}
     ].map(p => ({ ...p, t: Date.parse(p.time) }));
 
     const t0 = journey[0].t;
@@ -1496,24 +1835,95 @@
 
     const PLAY_MS = 42000;
     const timeFmt = new Intl.DateTimeFormat('ro-RO', {
-      weekday: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zagreb'
+      weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Zagreb'
     });
 
-    const map = L.map('map', { scrollWheelZoom: false }).setView([43.45, 16.45], 7);
+    const map = L.map('map', {
+      scrollWheelZoom: false,
+      zoomSnap: 0
+    }).setView([43.45, 16.45], 7);
+    window.sailMap = map;
+
+    // Trackpad pinch (Mac sends wheel + ctrlKey) and Ctrl/⌘+scroll zoom the map.
+    // Two-finger scroll still scrolls the page instead of stealing the map.
+    map.getContainer().addEventListener('wheel', (e) => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+      const nextZoom = Math.max(map.getMinZoom(), Math.min(map.getMaxZoom(), map.getZoom() - dy / 80));
+      map.setZoomAround(map.mouseEventToContainerPoint(e), nextZoom, { animate: false });
+    }, { passive: false });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
+    function samePos(a, b) {
+      return a && b && a[0] === b[0] && a[1] === b[1];
+    }
+
+    function segmentPath(from, to) {
+      if (samePos(from.coords, to.coords)) return [from.coords];
+      return [from.coords, ...(to.via || []), to.coords];
+    }
+
+    function distKm(a, b) {
+      const kLat = 111.32;
+      const kLng = 111.32 * Math.cos((a[0] + b[0]) * Math.PI / 360);
+      return Math.hypot((a[0] - b[0]) * kLat, (a[1] - b[1]) * kLng);
+    }
+
+    function headingDeg(a, b) {
+      return Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI;
+    }
+
+    function fmtGps(latlng) {
+      const [lat, lng] = latlng;
+      return `${Math.abs(lat).toFixed(4)}° ${lat >= 0 ? 'N' : 'S'}, ${Math.abs(lng).toFixed(4)}° ${lng >= 0 ? 'E' : 'W'}`;
+    }
+
+    function osmUrl(latlng) {
+      return `https://www.openstreetmap.org/?mlat=${latlng[0]}&mlon=${latlng[1]}#map=16/${latlng[0]}/${latlng[1]}`;
+    }
+
+    function pointAlong(path, u) {
+      if (path.length === 1) return { coords: path[0], heading: lastHeading, prefix: path.slice() };
+      const lengths = [];
+      let total = 0;
+      for (let i = 0; i < path.length - 1; i++) {
+        const d = distKm(path[i], path[i + 1]);
+        lengths.push(d);
+        total += d;
+      }
+      if (total === 0) return { coords: path[0], heading: lastHeading, prefix: path.slice() };
+      let remain = Math.max(0, Math.min(1, u)) * total;
+      const prefix = [path[0]];
+      for (let i = 0; i < lengths.length; i++) {
+        const d = lengths[i];
+        if (remain <= d || i === lengths.length - 1) {
+          const t = d === 0 ? 1 : remain / d;
+          const coords = [lerp(path[i][0], path[i + 1][0], t), lerp(path[i][1], path[i + 1][1], t)];
+          lastHeading = headingDeg(path[i], path[i + 1]);
+          prefix.push(coords);
+          return { coords, heading: lastHeading, prefix };
+        }
+        prefix.push(path[i + 1]);
+        remain -= d;
+      }
+      return { coords: path[path.length - 1], heading: lastHeading, prefix };
+    }
+
     const routeLatLngs = [];
-    journey.forEach(p => {
-      const prev = routeLatLngs[routeLatLngs.length - 1];
-      if (!prev || prev[0] !== p.coords[0] || prev[1] !== p.coords[1]) routeLatLngs.push(p.coords);
+    journey.forEach((p, i) => {
+      const pts = i === 0 ? [p.coords] : segmentPath(journey[i - 1], p);
+      pts.forEach(pt => {
+        if (!samePos(routeLatLngs[routeLatLngs.length - 1], pt)) routeLatLngs.push(pt);
+      });
     });
 
     const remainingLine = L.polyline(routeLatLngs, {
-      color: '#1d6fa5', weight: 4, opacity: 0.28, dashArray: '7 8'
+      color: '#1d6fa5', weight: 4, opacity: 0.55
     }).addTo(map);
 
     const traveledLine = L.polyline([routeLatLngs[0]], {
@@ -1531,9 +1941,7 @@
       });
     }
 
-    const markerLayer = L.featureGroup();
-    stops.forEach(stop => {
-      const marker = L.marker(stop.coords, { icon: stopIcon(stop.type), zIndexOffset: 200 });
+    function popupHtml(stop) {
       const cfg = STOP_TYPES[stop.type];
       const extra = (stop.links || []).map(l =>
         `<a href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`
@@ -1541,14 +1949,24 @@
       const stayLine = stop.night
         ? `<div class="popup-night">🌙 ${stop.night}</div>`
         : (stop.stay ? `<div class="popup-night">⏱ Staționare ${stop.stay}</div>` : '');
-      marker.bindPopup(`
+      return `
         <div class="popup-title">${stop.name}</div>
         <div class="popup-day">${cfg.label} · ${stop.day}</div>
         ${stayLine}
+        ${popupWxHtml(stop)}
+        <div class="popup-gps"><a href="${osmUrl(stop.coords)}" target="_blank" rel="noopener">${fmtGps(stop.coords)}</a></div>
         ${extra ? `<div class="popup-ext">${extra}</div>` : ''}
         <a class="popup-link" href="#${stop.anchor}">Vezi în timeline ↓</a>
-      `);
+      `;
+    }
+
+    const markerLayer = L.featureGroup();
+    const stopMarkers = [];
+    stops.forEach(stop => {
+      const marker = L.marker(stop.coords, { icon: stopIcon(stop.type), zIndexOffset: 200 });
+      marker.bindPopup(popupHtml(stop));
       marker.addTo(markerLayer);
+      stopMarkers.push({ marker, stop });
     });
     markerLayer.addTo(map);
 
@@ -1578,9 +1996,80 @@
       icon: boatIcon, zIndexOffset: 1000, interactive: false
     }).addTo(map);
 
-    map.fitBounds(markerLayer.getBounds().pad(0.12));
+    const overviewBounds = markerLayer.getBounds().pad(0.12);
+    map.fitBounds(overviewBounds);
     requestAnimationFrame(() => map.invalidateSize());
     window.addEventListener('load', () => map.invalidateSize());
+
+    const mapShell = document.getElementById('mapShell');
+    const mapFsBtn = document.getElementById('mapFsBtn');
+    const mapFsIcon = document.getElementById('mapFsIcon');
+
+    function nativeFsElement() {
+      return document.fullscreenElement || document.webkitFullscreenElement || null;
+    }
+
+    function isMapFullscreen() {
+      return nativeFsElement() === mapShell || mapShell.classList.contains('is-fullscreen');
+    }
+
+    function syncFsUi() {
+      const on = isMapFullscreen();
+      mapFsBtn.setAttribute('aria-label', on ? 'Ieși din ecran complet' : 'Ecran complet');
+      mapFsBtn.title = on ? 'Ieși din ecran complet' : 'Ecran complet';
+      mapFsIcon.innerHTML = on
+        ? '<path d="M9 3v5H4M15 3v5h5M9 21v-5H4M15 21v-5h5"/>'
+        : '<path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/>';
+      document.body.classList.toggle('map-fs-open', on);
+    }
+
+    function enterCssFullscreen() {
+      mapShell.classList.add('is-fullscreen');
+      syncFsUi();
+      requestAnimationFrame(() => map.invalidateSize());
+    }
+
+    function exitCssFullscreen() {
+      mapShell.classList.remove('is-fullscreen');
+      syncFsUi();
+      requestAnimationFrame(() => map.invalidateSize());
+    }
+
+    function enterFullscreen() {
+      enterCssFullscreen();
+      const req = mapShell.requestFullscreen || mapShell.webkitRequestFullscreen;
+      if (req) Promise.resolve(req.call(mapShell)).catch(() => {});
+    }
+
+    function exitFullscreen() {
+      const exit = document.exitFullscreen || document.webkitExitFullscreen;
+      if (nativeFsElement() && exit) Promise.resolve(exit.call(document)).catch(() => {});
+      exitCssFullscreen();
+    }
+
+    function toggleFullscreen() {
+      isMapFullscreen() ? exitFullscreen() : enterFullscreen();
+    }
+
+    mapFsBtn.addEventListener('click', toggleFullscreen);
+    function afterFullscreenChange() {
+      if (!nativeFsElement()) mapShell.classList.remove('is-fullscreen');
+      syncFsUi();
+      requestAnimationFrame(() => {
+        map.invalidateSize();
+        if (playing) {
+          const pos = positionAt(progressToTime(progress));
+          panToBoat(pos.coords, true);
+        }
+      });
+    }
+    document.addEventListener('fullscreenchange', afterFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', afterFullscreenChange);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mapShell.classList.contains('is-fullscreen') && !nativeFsElement()) {
+        exitCssFullscreen();
+      }
+    });
 
     function lerp(a, b, u) { return a + (b - a) * u; }
 
@@ -1595,27 +2084,25 @@
       for (let i = 0; i < journey.length - 1; i++) {
         const a = journey[i];
         const b = journey[i + 1];
+        const path = segmentPath(a, b);
+        const moving = !samePos(a.coords, b.coords);
         if (t > b.t) {
-          if (traveled[traveled.length - 1][0] !== b.coords[0] || traveled[traveled.length - 1][1] !== b.coords[1]) {
-            traveled.push(b.coords);
-          }
+          path.forEach(pt => {
+            if (!samePos(traveled[traveled.length - 1], pt)) traveled.push(pt);
+          });
           continue;
         }
         const span = Math.max(1, b.t - a.t);
         const u = (t - a.t) / span;
-        const coords = [lerp(a.coords[0], b.coords[0], u), lerp(a.coords[1], b.coords[1], u)];
-        const moving = a.coords[0] !== b.coords[0] || a.coords[1] !== b.coords[1];
-        if (moving) {
-          lastHeading = Math.atan2(b.coords[1] - a.coords[1], b.coords[0] - a.coords[0]) * 180 / Math.PI;
-        }
-        if (traveled[traveled.length - 1][0] !== coords[0] || traveled[traveled.length - 1][1] !== coords[1]) {
-          traveled.push(coords);
-        }
+        const along = pointAlong(path, u);
+        along.prefix.forEach(pt => {
+          if (!samePos(traveled[traveled.length - 1], pt)) traveled.push(pt);
+        });
         let point = u < 0.12 ? a : (u > 0.88 ? b : a);
         if (moving && u >= 0.12 && u <= 0.88) {
           point = { ...a, name: 'Spre ' + b.name, note: 'sub vele' };
         }
-        return { coords, heading: lastHeading, point, traveled };
+        return { coords: along.coords, heading: along.heading, point, traveled };
       }
       const last = journey[journey.length - 1];
       return { coords: last.coords, heading: 0, point: last, traveled: routeLatLngs };
@@ -1627,11 +2114,33 @@
     let playing = false;
     let raf = null;
     let lastTs = 0;
+    let followBoat = false;
+    let followReady = false;
+    let followTimer = null;
+
+    function followZoomLevel() {
+      return isMapFullscreen() ? 12.1 : 11.25;
+    }
+
+    function panToBoat(coords, zoomIn) {
+      const latlng = L.latLng(coords[0], coords[1]);
+      const z = followZoomLevel();
+      if (zoomIn) {
+        map.flyTo(latlng, z, { duration: 0.85, easeLinearity: 0.35 });
+        return;
+      }
+      if (map.getZoom() < z - 0.2) {
+        map.setView(latlng, z, { animate: false });
+      } else {
+        map.panTo(latlng, { animate: false, noMoveStart: true });
+      }
+    }
 
     const playBtn = document.getElementById('playBtn');
     const playIcon = document.getElementById('playIcon');
     const playerPlace = document.getElementById('playerPlace');
     const playerTime = document.getElementById('playerTime');
+    const playerWx = document.getElementById('playerWx');
     const playerTrack = document.getElementById('playerTrack');
     const playerProgress = document.getElementById('playerProgress');
     const playerThumb = document.getElementById('playerThumb');
@@ -1700,9 +2209,20 @@
       const note = document.getElementById('boatTileNote');
       if (note) note.textContent = shortStatus(pos.point.note);
 
-      playerPlace.textContent = pos.point.name;
-      playerTime.textContent = capitalRo(timeFmt.format(new Date(t))) + ' · ' + pos.point.note;
+      const labelT = playing && pos.point.t ? pos.point.t : t;
+      const labelCoords = playing && pos.point.coords ? pos.point.coords : pos.coords;
+      const placeText = pos.point.name;
+      const timeText = capitalRo(timeFmt.format(new Date(labelT)));
+      if (playerPlace.textContent !== placeText) playerPlace.textContent = placeText;
+      if (playerTime.textContent !== timeText) playerTime.textContent = timeText;
+
+      const liveWx = wxAt(labelCoords, labelT);
+      const wxText = liveWx
+        ? `${wxMeta(liveWx.code, zagrebHour(labelT)).icon} ${liveWx.temp}° · ${liveWx.wind} kn ${windLabel(liveWx.windDir)}`
+        : '';
+      if (playerWx && playerWx.textContent !== wxText) playerWx.textContent = wxText;
       traveledLine.setLatLngs(pos.traveled.length ? pos.traveled : [pos.coords]);
+      if (followBoat && followReady) panToBoat(pos.coords, false);
     }
 
     function playFrame(now) {
@@ -1713,6 +2233,8 @@
       if (progress >= 1) {
         progress = 1;
         playing = false;
+        followBoat = false;
+        followReady = false;
         setPlayIcon(false);
         render(progress);
         return;
@@ -1724,13 +2246,22 @@
     function startPlay() {
       if (progress >= 1) progress = 0;
       playing = true;
+      followBoat = true;
+      followReady = false;
       lastTs = 0;
       setPlayIcon(true);
+      const startPos = positionAt(progressToTime(progress));
+      panToBoat(startPos.coords, true);
+      if (followTimer) clearTimeout(followTimer);
+      followTimer = setTimeout(() => { followReady = true; }, 900);
       raf = requestAnimationFrame(playFrame);
     }
 
     function stopPlay() {
       playing = false;
+      followBoat = false;
+      followReady = false;
+      if (followTimer) clearTimeout(followTimer);
       lastTs = 0;
       setPlayIcon(false);
       if (raf) cancelAnimationFrame(raf);
@@ -1749,6 +2280,8 @@
       dragging = true;
       try { playerTrack.setPointerCapture(e.pointerId); } catch (_) {}
       stopPlay();
+      followBoat = true;
+      followReady = true;
       progress = ratioFromEvent(e);
       render(progress);
     });
@@ -1757,10 +2290,209 @@
       progress = ratioFromEvent(e);
       render(progress);
     });
-    playerTrack.addEventListener('pointerup', () => { dragging = false; });
-    playerTrack.addEventListener('pointercancel', () => { dragging = false; });
+    playerTrack.addEventListener('pointerup', () => { dragging = false; followBoat = false; followReady = false; });
+    playerTrack.addEventListener('pointercancel', () => { dragging = false; followBoat = false; followReady = false; });
+
+    const wxHourFmt = new Intl.DateTimeFormat('sv-SE', {
+      timeZone: 'Europe/Zagreb',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', hour12: false
+    });
+    const wxHourOnly = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/Zagreb', hour: '2-digit', hour12: false
+    });
+
+    function wxKey(lat, lng) {
+      return `${Number(lat).toFixed(3)},${Number(lng).toFixed(3)}`;
+    }
+
+    function toHourlyKey(ts) {
+      return wxHourFmt.format(new Date(ts)).replace(' ', 'T');
+    }
+
+    function zagrebHour(ts) {
+      return Number(wxHourOnly.format(new Date(ts)));
+    }
+
+    function windLabel(deg) {
+      const dirs = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+      return dirs[Math.round(((deg % 360) + 360) % 360 / 22.5) % 16];
+    }
+
+    function wxMeta(code, hour) {
+      const night = hour < 6 || hour >= 20;
+      if (code === 0) return { icon: night ? '🌙' : '☀️', text: 'senin' };
+      if (code === 1) return { icon: night ? '🌙' : '🌤️', text: 'aproape senin' };
+      if (code === 2) return { icon: '⛅', text: 'parțial noros' };
+      if (code === 3) return { icon: '☁️', text: 'înnorat' };
+      if (code === 45 || code === 48) return { icon: '🌫️', text: 'ceață' };
+      if (code >= 51 && code <= 57) return { icon: '🌦️', text: 'burniță' };
+      if (code >= 61 && code <= 67) return { icon: '🌧️', text: 'ploaie' };
+      if (code >= 71 && code <= 77) return { icon: '❄️', text: 'ninsoare' };
+      if (code >= 80 && code <= 82) return { icon: '🌦️', text: 'averse' };
+      if (code >= 85 && code <= 86) return { icon: '🌨️', text: 'averse de zăpadă' };
+      if (code >= 95) return { icon: '⛈️', text: 'furtună' };
+      return { icon: '🌡️', text: 'variabil' };
+    }
+
+    function nearestWxKey(coords) {
+      let best = null;
+      let bestD = Infinity;
+      wxStore.forEach((_, key) => {
+        const [lat, lng] = key.split(',').map(Number);
+        const d = distKm(coords, [lat, lng]);
+        if (d < bestD) { bestD = d; best = key; }
+      });
+      return best;
+    }
+
+    function readHourly(pack, ts) {
+      if (!pack || !pack.hourly || !pack.hourly.time) return null;
+      const times = pack.hourly.time;
+      const want = toHourlyKey(ts);
+      let idx = times.indexOf(want);
+      if (idx < 0) {
+        let best = 0;
+        let bestDiff = Infinity;
+        const target = Date.parse(want + ':00+02:00');
+        times.forEach((t, i) => {
+          const diff = Math.abs(Date.parse(t + ':00+02:00') - target);
+          if (diff < bestDiff) { bestDiff = diff; best = i; }
+        });
+        idx = best;
+      }
+      const h = pack.hourly;
+      const sea = pack.sea && pack.sea.hourly;
+      const wave = sea && sea.wave_height && sea.wave_height[idx];
+      return {
+        temp: Math.round(h.temperature_2m[idx]),
+        code: h.weather_code[idx],
+        wind: Math.round(h.wind_speed_10m[idx]),
+        gust: Math.round(h.wind_gusts_10m[idx]),
+        windDir: h.wind_direction_10m[idx],
+        rain: h.precipitation[idx],
+        rainP: h.precipitation_probability[idx],
+        wave: (wave == null || Number.isNaN(wave)) ? null : wave
+      };
+    }
+
+    function wxAt(coords, ts) {
+      const key = nearestWxKey(coords);
+      if (!key) return null;
+      return readHourly(wxStore.get(key), ts);
+    }
+
+    function wxForSlot(slot) {
+      return wxAt(slot.coords, Date.parse(slot.time));
+    }
+
+    function wxCompact(slot) {
+      const w = wxForSlot(slot);
+      if (!w) return '<span class="wx is-empty">prognoză indisponibilă</span>';
+      const m = wxMeta(w.code, zagrebHour(slot.time));
+      const rain = (w.rainP >= 30 || w.rain > 0.1) ? ` · ploaie ${w.rainP}%` : '';
+      return `<span class="wx">${m.icon} ${w.temp}° · ${w.wind} kn ${windLabel(w.windDir)}${rain}</span>`;
+    }
+
+    function wxCardHtml(id) {
+      const slot = WX[id];
+      if (!slot) return '';
+      const w = wxForSlot(slot);
+      if (!w) return `<div class="wx-card is-empty">${slot.label} · ${slot.place}<br>indisponibilă</div>`;
+      const m = wxMeta(w.code, zagrebHour(slot.time));
+      const rain = (w.rainP >= 30 || w.rain > 0.1) ? ` · ploaie ${w.rainP}%` : '';
+      const wave = w.wave != null ? `<span class="wx-sea">val ${w.wave.toFixed(1)} m</span>` : '';
+      return `<div class="wx-card">
+        <small>${slot.label} · ${slot.place}</small>
+        <div class="wx-main"><span class="wx-icon">${m.icon}</span><b>${w.temp}°</b></div>
+        <em>${m.text} · ${w.wind} kn ${windLabel(w.windDir)}${rain}</em>
+        ${wave}
+      </div>`;
+    }
+
+    function popupWxHtml(stop) {
+      const ids = Array.isArray(stop.wx) ? stop.wx : (stop.wx ? [stop.wx] : []);
+      const lines = ids.map(id => {
+        const slot = WX[id];
+        if (!slot) return '';
+        const w = wxForSlot(slot);
+        if (!w) return '';
+        const m = wxMeta(w.code, zagrebHour(slot.time));
+        const wave = w.wave != null ? ` · val ${w.wave.toFixed(1)} m` : '';
+        return `<small>${slot.label} · ${slot.place}</small>${m.icon} ${w.temp}° · ${m.text} · ${w.wind} kn ${windLabel(w.windDir)}${wave}`;
+      }).filter(Boolean);
+      return lines.length ? `<div class="popup-wx">${lines.join('<br>')}</div>` : '';
+    }
+
+    function fillWeatherUi() {
+      document.querySelectorAll('[data-wx-ids]').forEach(el => {
+        const ids = el.getAttribute('data-wx-ids').split(',').map(s => s.trim()).filter(Boolean);
+        el.innerHTML = ids.map(wxCardHtml).join('');
+      });
+      document.querySelectorAll('[data-wx]').forEach(el => {
+        const slot = WX[el.getAttribute('data-wx')];
+        if (!slot) return;
+        el.querySelectorAll(':scope > .wx, :scope > .wx-pill').forEach(n => n.remove());
+        const meta = el.querySelector('.meta');
+        if (meta) {
+          const w = wxForSlot(slot);
+          if (!w) return;
+          const m = wxMeta(w.code, zagrebHour(slot.time));
+          const pill = document.createElement('span');
+          pill.className = 'wx-pill';
+          pill.textContent = `${m.icon} ${slot.label} · ${w.temp}° · ${w.wind} kn ${windLabel(w.windDir)}`;
+          meta.appendChild(pill);
+        } else {
+          el.insertAdjacentHTML('beforeend', wxCompact(slot));
+        }
+      });
+      stopMarkers.forEach(({ marker, stop }) => marker.setPopupContent(popupHtml(stop)));
+      render(progress);
+    }
+
+    function uniqueWxPoints() {
+      const seen = new Map();
+      Object.values(WX).forEach(slot => {
+        const key = wxKey(slot.coords[0], slot.coords[1]);
+        if (!seen.has(key)) seen.set(key, { key, lat: slot.coords[0], lng: slot.coords[1] });
+      });
+      return [...seen.values()];
+    }
+
+    async function fetchJson(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('meteo ' + res.status);
+      return res.json();
+    }
+
+    async function loadWeather() {
+      document.querySelectorAll('[data-wx-ids]').forEach(el => {
+        el.innerHTML = '<div class="wx-card is-loading">Se încarcă prognoza…</div>';
+      });
+      const points = uniqueWxPoints();
+      const lats = points.map(p => p.lat.toFixed(4)).join(',');
+      const lngs = points.map(p => p.lng.toFixed(4)).join(',');
+      const common = `latitude=${lats}&longitude=${lngs}&timezone=Europe/Zagreb&start_date=2026-09-13&end_date=2026-09-18`;
+      try {
+        const [wxJson, seaJson] = await Promise.all([
+          fetchJson(`https://api.open-meteo.com/v1/forecast?${common}&hourly=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation,precipitation_probability&wind_speed_unit=kn&cell_selection=sea`),
+          fetchJson(`https://marine-api.open-meteo.com/v1/marine?${common}&hourly=wave_height`).catch(() => null)
+        ]);
+        const wxList = Array.isArray(wxJson) ? wxJson : [wxJson];
+        const seaList = seaJson ? (Array.isArray(seaJson) ? seaJson : [seaJson]) : [];
+        points.forEach((p, i) => {
+          wxStore.set(p.key, { hourly: wxList[i] && wxList[i].hourly, sea: seaList[i] || null });
+        });
+        fillWeatherUi();
+      } catch (err) {
+        document.querySelectorAll('[data-wx-ids]').forEach(el => {
+          el.innerHTML = '<div class="wx-card is-empty">Prognoza nu s-a putut încărca.</div>';
+        });
+      }
+    }
 
     render(0);
+    loadWeather();
 
     document.addEventListener('click', function(e) {
       const link = e.target.closest('.popup-link');
