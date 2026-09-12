@@ -3,43 +3,57 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Croația cu yachtul — 13–18 septembrie | Zadar → Vis → Zadar</title>
-  <meta name="description" content="Itinerar de sailing 13–18 septembrie 2026: plecare duminică dimineața din Sukošan, predare vineri seara. Šibenik → Trogir → Hvar → Vis → Primošten → Zadar. Zile echilibrate, fără etape de 70+ NM." />
-  <meta property="og:title" content="Croația cu yachtul — 13–18 septembrie 2026" />
-  <meta property="og:description" content="Duminică 13 septembrie, foarte dimineața, din Marina Dalmacija; retur vineri 18 septembrie seara. Šibenik, Trogir, Hvar, Vis, Primošten, Zadar — fără o zi de navigație foarte lungă." />
+  <title>Odiseea — croazieră mitică | Itaca → Ogigia → Itaca</title>
+  <meta name="description" content="Odiseea noastră pe mare, 13–18 septembrie 2026: plecare din Itaca (Sukošan), prin Ismaros, Lotofagi, Scheria, Eaia, Ogigia și Eolia — înapoi acasă. Aceleași golfuri, nume din epopee." />
+  <meta property="og:title" content="Odiseea — croazieră mitică · 13–18 septembrie 2026" />
+  <meta property="og:description" content="Duminică 13 septembrie din portul Itacăi; retur vineri seara. Ismaros, Lotofagi, Scheria, Eaia, Ogigia, Eolia — aceleași destinații, numele din Odiseea." />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛵</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏺</text></svg>" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="vendor/leaflet.css" />
   <script src="vendor/leaflet.js"></script>
 
   <style>
     :root {
-      --bg: #f4f7fb;
-      --surface: #ffffff;
-      --surface-soft: #eef5fb;
-      --text: #162235;
-      --muted: #65748b;
-      --navy: #0f3557;
-      --blue: #1d6fa5;
-      --cyan: #58b9d4;
-      --sand: #e6c58f;
-      --green: #2f7e65;
-      --line: #d9e3ed;
-      --shadow: 0 18px 45px rgba(26, 52, 82, 0.12);
+      --bg: #e9f0f2;
+      --surface: #f7fbfc;
+      --surface-soft: #e4eef1;
+      --text: #102033;
+      --muted: #5a6d7c;
+      --navy: #0b1c2c;
+      --blue: #1a5f73;
+      --cyan: #6fb3b0;
+      --sand: #c4a35a;
+      --bronze: #b8893d;
+      --green: #3d7a62;
+      --line: #c9d6dc;
+      --shadow: 0 18px 45px rgba(11, 28, 44, 0.14);
       --radius: 22px;
+      --font-display: "Cinzel", "Times New Roman", serif;
+      --font-body: "Manrope", "Segoe UI", sans-serif;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--font-body);
       background:
-        radial-gradient(circle at top right, rgba(88,185,212,.12), transparent 28rem),
-        linear-gradient(180deg, #f8fbfe 0, var(--bg) 34rem);
+        radial-gradient(ellipse 80% 50% at 10% -10%, rgba(111,179,176,.22), transparent 42%),
+        radial-gradient(ellipse 60% 40% at 100% 0%, rgba(196,163,90,.16), transparent 38%),
+        linear-gradient(180deg, #dce8eb 0, var(--bg) 36rem),
+        repeating-linear-gradient(
+          -12deg,
+          transparent,
+          transparent 11px,
+          rgba(11,28,44,.015) 11px,
+          rgba(11,28,44,.015) 12px
+        );
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     a { color: inherit; }
@@ -63,17 +77,65 @@
       color: var(--blue);
       font-size: 13px;
       font-weight: 800;
-      letter-spacing: .04em;
+      letter-spacing: .12em;
       text-transform: uppercase;
+      font-family: var(--font-display);
+      font-weight: 700;
     }
 
-    h1 {
-      margin: 16px 0 14px;
-      font-size: clamp(36px, 6vw, 72px);
-      line-height: .98;
-      letter-spacing: -0.05em;
-      max-width: 900px;
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(48px, 9vw, 92px);
+      line-height: .92;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin: 14px 0 8px;
+      max-width: 920px;
+      animation: brandRise .9s ease-out both;
     }
+    .brand span {
+      display: block;
+      font-size: .42em;
+      letter-spacing: .28em;
+      font-weight: 500;
+      color: var(--bronze);
+      margin-top: .35em;
+    }
+    h1 {
+      margin: 10px 0 14px;
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3.2vw, 34px);
+      line-height: 1.2;
+      letter-spacing: .01em;
+      font-weight: 500;
+      max-width: 760px;
+      color: var(--text);
+      animation: fadeUp .8s .15s ease-out both;
+    }
+    @keyframes brandRise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes waveDrift {
+      0%, 100% { background-position: 0 0, 100% 0, 0 0, 0 0; }
+      50% { background-position: 12px -6px, 92% 8px, 0 0, 0 0; }
+    }
+    body { animation: waveDrift 18s ease-in-out infinite; }
+    .hero p { animation: fadeUp .85s .28s ease-out both; }
+    .day-badge { transition: transform .25s ease, box-shadow .25s ease; }
+    .day:hover .day-badge { transform: translateY(-3px) scale(1.03); }
+    .map-shell { animation: fadeUp .7s .2s ease-out both; }
+    .section-title h2, .nights-head h2, .map-head h2, .boat-shell h2 {
+      font-family: var(--font-display);
+      letter-spacing: .04em;
+    }
+    .route-title h3 { font-family: var(--font-display); font-weight: 700; }
 
     .hero p {
       font-size: 18px;
@@ -330,7 +392,7 @@
       top: 24px;
       bottom: 30px;
       width: 2px;
-      background: linear-gradient(var(--blue), var(--cyan), var(--sand));
+      background: linear-gradient(var(--navy), var(--cyan), var(--bronze));
     }
 
     .day {
@@ -663,10 +725,10 @@
     .callout {
       margin: 10px 0 0;
       padding: 14px 16px;
-      border-left:4px solid var(--sand);
-      background:#fffaf1;
+      border-left:4px solid var(--bronze);
+      background:rgba(111,179,176,.12);
       border-radius:12px;
-      color:#6f5b38;
+      color:#2a4a52;
       font-size:14px;
     }
 
@@ -740,7 +802,7 @@
     .leaflet-popup-content { margin: 12px 14px; }
     .popup-title { font-weight: 800; font-size: 14px; }
     .popup-day { color: #65748b; font-size: 12px; margin-top: 3px; }
-    .popup-link { display:inline-block; margin-top:7px; color:#1d6fa5; font-weight:800; text-decoration:none; }
+    .popup-link { display:inline-block; margin-top:7px; color:#1a5f73; font-weight:800; text-decoration:none; }
     .popup-ext { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
     .popup-ext a { color:#1d6fa5; font-weight:800; font-size:12px; text-decoration:none; }
 
@@ -781,41 +843,42 @@
 <body>
   <header class="wrap hero">
     <div>
-      <div class="eyebrow">⛵ Croatia Sailing • 13–18 septembrie</div>
-      <h1>Istorie, golfuri și orașe vechi — fără ocolișuri scumpe.</h1>
+      <div class="eyebrow">🏺 Odiseea pe mare • 13–18 septembrie</div>
+      <div class="brand">Odiseea<span>Sailing Trip</span></div>
+      <h1>Aceeași coastă. Numele din epopee.</h1>
       <p>
-        Varianta optimizată pentru charterul nostru cu <strong>Beneteau Oceanis 50 „Flying Colours"</strong>,
-        din D-Marin Marina Dalmacija (Sukošan, lângă Zadar):
+        Croaziera noastră cu <strong>Beneteau Oceanis 50 „Flying Colours"</strong> din portul Itacăi
+        (D-Marin Marina Dalmacija, Sukošan):
         <strong>plecare duminică 13 septembrie, foarte dimineața</strong>,
         <strong>predare vineri 18 septembrie seara</strong>.
         Navigăm <strong>doar ziua</strong> — nopțile la dană sau la geamandură.
-        Opriri ușor accesibile din port, fortărețe, orașe medievale și câteva locuri militare spectaculoase.
+        Destinațiile rămân aceleași; le urmăm ca pe traseul lui Odiseu: Ismaros, Lotofagi, Scheria, Eaia, Ogigia, Eolia — și înapoi acasă.
       </p>
     </div>
     <aside class="hero-note">
       <strong>De ce am reechilibrat traseul</strong>
       <span>
-        Varianta cu Trogir în ziua 1 și Korčula în buclă forța ~60 NM duminică și ~75 NM joi.
-        Acum ziua 1 se oprește la Šibenik (~35 NM), Korčula e scoasă din cele 6 zile, iar fiecare etapă rămâne la ~30–45 NM.
+        Varianta cu Scheria în ziua 1 și Telepil în buclă forța ~60 NM duminică și ~75 NM joi.
+        Acum ziua 1 se oprește la Ismaros (~35 NM), Telepil e scoasă din cele 6 zile, iar fiecare etapă rămâne la ~30–45 NM.
       </span>
     </aside>
   </header>
 
   <div class="wrap stats">
-    <div class="stat"><b>6</b><span>zile, doar navigație de zi</span></div>
+    <div class="stat"><b>6</b><span>zile pe marea cea vinicolă</span></div>
     <div class="stat"><b>5</b><span>nopți la dană / geamandură</span></div>
-    <div class="stat"><b>25+</b><span>opriri și obiective</span></div>
+    <div class="stat"><b>25+</b><span>tărâmuri din epopee</span></div>
     <div class="stat"><b>€40–55</b><span>buget istoric / pers.</span></div>
   </div>
 
   <main class="wrap">
     <section class="boat-shell">
       <div>
-        <div class="eyebrow">⛵ Barca noastră</div>
+        <div class="eyebrow">🏺 Nava Odiseei</div>
         <h2>Beneteau Oceanis 50 — „Flying Colours"</h2>
         <p>
-          Velier construit în 2012 (renovat în 2020), operat de Sport Sails.
-          Baza: D-Marin Marina Dalmacija, Sukošan — la ~10 km de aeroportul Zadar (taxi ~€25),
+          Velierul nostru pe Odisee — construit în 2012 (renovat în 2020), operat de Sport Sails.
+          Portul Itacăi: D-Marin Marina Dalmacija, Sukošan — la ~10 km de aeroport (taxi ~€25),
           marină cu supermarket, restaurant, stație de carburant, iar toate danele au apă și curent.
         </p>
         <div class="boat-specs">
@@ -827,7 +890,7 @@
           <div class="boat-spec"><b>Bucătărie completă</b><span>frigider • congelator • cuptor • microunde</span></div>
         </div>
         <a class="boat-link" href="https://www.boataround.com/boat/beneteau-oceanis-50-flying-colours" target="_blank" rel="noopener">Vezi barca pe Boataround →</a>
-        <a class="boat-link ghost" href="https://www.d-marin.com/en/marinas/dalmacija/" target="_blank" rel="noopener">Marina Dalmacija</a>
+        <a class="boat-link ghost" href="https://www.d-marin.com/en/marinas/dalmacija/" target="_blank" rel="noopener">Portul Itacăi</a>
       </div>
       <div class="boat-costs">
         <strong>De plătit la preluarea bărcii (neincluse)</strong>
@@ -842,8 +905,8 @@
     <section class="map-shell" id="mapShell">
       <div class="map-head">
         <div>
-          <h2>Harta traseului</h2>
-          <p>Linia urmează canalele de navigație, nu drumul drept. Markerii sunt pe GPS-ul real al danei sau ancorajului.</p>
+          <h2>Harta Odiseei</h2>
+          <p>Linia urmează canalele de navigație, nu drumul drept. Markerii rămân pe GPS-ul real al danei — doar numele sunt din epopee.</p>
         </div>
         <div class="map-legend" id="mapLegend"></div>
       </div>
@@ -861,7 +924,7 @@
         </button>
         <div>
           <div class="player-meta">
-            <strong id="playerPlace">Sukošan — Marina Dalmacija</strong>
+            <strong id="playerPlace">Itaca — Portul lui Odiseu</strong>
             <span class="player-meta-right">
               <span id="playerWx" class="player-wx"></span>
               <span id="playerTime" class="player-time">Dum. 07:00</span>
@@ -879,47 +942,47 @@
 
     <section class="nights-shell">
       <div class="nights-head">
-        <h2>Unde înoptăm</h2>
+        <h2>Unde înoptăm pe Odisee</h2>
         <p>
-          Doar navigație de zi. Dacă preluați barca sâmbătă seara, prima noapte e la Marina Dalmacija;
-          prima ieșire e duminică la 07:00. Vineri seara suntem înapoi la aceeași marină.
+          Doar navigație de zi. Dacă preluați barca sâmbătă seara, prima noapte e în portul Itacăi;
+          prima ieșire e duminică la 07:00. Vineri seara ne întoarcem acasă, la aceeași marină.
         </p>
       </div>
       <div class="nights">
         <div class="night-card" data-wx="d1_sibenik">
           <small>Noaptea 1 · Dum 13</small>
-          <b>Šibenik</b>
-          <span>Marina Mandalina · 15:00 → lun 09:00 · ~18 h</span>
+          <b>Ismaros</b>
+          <span>Portul din Ismaros · 15:00 → lun 09:00 · ~18 h</span>
         </div>
         <div class="night-card" data-wx="d2_trogir">
           <small>Noaptea 2 · Lun 14</small>
-          <b>Trogir</b>
-          <span>ACI Marina Trogir · 15:30 → mar 09:00 · ~17.5 h</span>
+          <b>Scheria</b>
+          <span>Portul Feacilor · 15:30 → mar 09:00 · ~17.5 h</span>
         </div>
         <div class="night-card" data-wx="d3_palm">
           <small>Noaptea 3 · Mar 15</small>
-          <b>Vinogradišće</b>
-          <span>Geamanduri la Laganini · 17:30 → mie 07:30 · ~14 h</span>
+          <b>Grădina Circei</b>
+          <span>Geamanduri pe Eaia · 17:30 → mie 07:30 · ~14 h</span>
         </div>
         <div class="night-card" data-wx="d4_vis">
           <small>Noaptea 4 · Mie 16</small>
-          <b>Vis Town</b>
-          <span>Portul orașului · 16:00 → joi 09:00 · ~17 h</span>
+          <b>Ogigia</b>
+          <span>Portul Calipso · 16:00 → joi 09:00 · ~17 h</span>
         </div>
         <div class="night-card" data-wx="d5_kremik">
           <small>Noaptea 5 · Joi 17</small>
-          <b>Primošten</b>
-          <span>Marina Kremik sau portul orașului · 17:00 → vin 08:00 · ~15 h</span>
+          <b>Eolia</b>
+          <span>Portul lui Eol · 17:00 → vin 08:00 · ~15 h</span>
         </div>
       </div>
     </section>
 
     <div class="section-title">
       <div>
-        <h2>Timeline complet</h2>
+        <h2>Călătoria completă</h2>
       </div>
       <p>
-        Fiecare zi e navigație la lumină. La destinații vezi cât staționăm, noaptea e marcată cu marina sau geamandura, iar prognoza e pe ora planificată în fiecare loc.
+        Fiecare zi e o etapă din Odisee — navigație la lumină. Destinațiile mitice păstrează GPS-ul real; noaptea e marcată cu portul sau geamandura, iar prognoza e pe ora planificată.
         <span class="wx-note">Meteo: temperatură, vânt în noduri și valuri (Open-Meteo), pe GPS-ul opririi.</span>
       </p>
     </div>
@@ -931,23 +994,23 @@
         <div class="day-card">
           <div class="day-top">
             <div class="route-title">
-              <h3>Sukošan → Šibenik</h3>
+              <h3>Itaca → Ismaros</h3>
               <p class="day-date">Duminică, 13 septembrie</p>
-              <p>Prima zi scurtă și calmă: coborâm pe coastă, vedem fortăreața Sf. Nicolae de pe apă, apoi seară în Šibenik.</p>
+              <p>Plecăm din Itaca: coborâm pe coastă, vedem Veghea Troiei de pe apă, apoi seară în Ismaros — prima țară a Ciclonilor din epopee.</p>
             </div>
             <div class="sailing">~35 NM • 5–6 h de zi</div>
           </div>
           <div class="day-wx" data-wx-ids="d1_start,d1_fort,d1_sibenik"></div>
           <div class="day-stays">
-            <div class="stay-chip" data-wx="d1_fort"><small>Oprire</small><b>Sf. Nicolae</b><span>~12:00 · 15–20 min de pe apă</span></div>
-            <div class="stay-chip night" data-wx="d1_sibenik"><small>Înoptare</small><b>Marina Mandalina</b><span>15:00 → lun 09:00 · ~18 h</span></div>
+            <div class="stay-chip" data-wx="d1_fort"><small>Oprire</small><b>Veghea Troiei</b><span>~12:00 · 15–20 min de pe apă</span></div>
+            <div class="stay-chip night" data-wx="d1_sibenik"><small>Înoptare</small><b>Portul Ismaros</b><span>15:00 → lun 09:00 · ~18 h</span></div>
           </div>
           <div class="stops">
             <div class="stop" data-wx="d1_fort">
               <div class="stop-icon">🛡️</div>
               <div>
-                <h4>Fortăreața Sf. Nicolae, Šibenik (de pe apă)</h4>
-                <p>Fortăreață venețiană UNESCO pe insulița de la gura canalului Sf. Ante. Chiar pe traseul de intrare în Šibenik — spectaculoasă de pe punte, fără debarcare.</p>
+                <h4>Veghea Troiei (de pe apă)</h4>
+                <p>Bastion pe insulița de la gura canalului — pe Odisee, ultima privire spre Troia înainte de Ismaros. Spectaculoasă de pe punte, fără debarcare. (Sf. Nicolae / Šibenik)</p>
                 <div class="meta"><span class="pill">15–20 min</span><span class="pill cost">gratuit de pe apă</span><span class="pill must">merită</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/St._Nicholas_Fortress" target="_blank" rel="noopener">Wikipedia</a>
@@ -958,8 +1021,8 @@
             <div class="stop" data-wx="d1_sibenik">
               <div class="stop-icon">⛪</div>
               <div>
-                <h4>Catedrala Sf. Iacob</h4>
-                <p>UNESCO, construită integral din piatră (fără mortar). Fațada și baptisteriul merită 45–60 de minute în centrul vechi.</p>
+                <h4>Templul de piatră al Ismarosului</h4>
+                <p>UNESCO, construită integral din piatră (fără mortar) — ca un sanctuar al Ciclonilor. Fațada și baptisteriul merită 45–60 de minute în centrul vechi.</p>
                 <div class="meta"><span class="pill">45–60 min</span><span class="pill cost">~€5–8</span><span class="pill must">top pick</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Cathedral_of_St._James,_%C5%A0ibenik" target="_blank" rel="noopener">Wikipedia</a>
@@ -970,8 +1033,8 @@
             <div class="stop" data-wx="d1_evening">
               <div class="stop-icon">🏰</div>
               <div>
-                <h4>St. Michael's Fortress</h4>
-                <p>Deasupra orașului vechi; panoramă asupra canalului și a insulelor. Urcare scurtă din centru.</p>
+                <h4>Acropolea Ismarosului</h4>
+                <p>Deasupra orașului vechi; panoramă asupra canalului și a insulelor — veghea Ciclonilor. Urcare scurtă din centru.</p>
                 <div class="meta"><span class="pill">45–60 min</span><span class="pill cost">~€8–10</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/St._Michael%27s_Fortress,_%C5%A0ibenik" target="_blank" rel="noopener">Wikipedia</a>
@@ -982,8 +1045,8 @@
             <div class="stop" data-wx="d1_dinner">
               <div class="stop-icon">🍽️</div>
               <div>
-                <h4>Pepe Cannonara / centru vechi</h4>
-                <p>Cină în străduțele dintre catedrală și port — Šibenik e compact, totul e la 10–15 minute de marină cu un taxi scurt sau pe jos + water taxi.</p>
+                <h4>Ospățul din Ismaros</h4>
+                <p>Cină în străduțele dintre templu și port — Ismaros e compact, totul e la 10–15 minute de marină cu un taxi scurt sau pe jos + water taxi.</p>
                 <div class="meta"><span class="pill">~1.5–2 h cină</span></div>
                 <div class="stop-links">
                   <a href="https://www.sibenik-tourism.hr/en/" target="_blank" rel="noopener">Visit Šibenik</a>
@@ -994,8 +1057,8 @@
           <div class="overnight" data-wx="d1_sibenik">
             <div class="stop-icon">🌙</div>
             <div>
-              <h4>Înoptare — Marina Mandalina, Šibenik</h4>
-              <p>Sosire ~15:00, plecare luni 09:00. Staționare ~18 h. Marină adăpostită, cu apă/curent, potrivită pentru Oceanis 50. Alternativă: ACI Šibenik, mai aproape de centrul vechi.</p>
+              <h4>Înoptare — Portul Ismaros</h4>
+              <p>Sosire ~15:00, plecare luni 09:00. Staționare ~18 h. Marină adăpostită (Mandalina), cu apă/curent, potrivită pentru Oceanis 50. Alternativă: ACI, mai aproape de centrul vechi.</p>
               <div class="meta">
                 <span class="pill">15:00 → 09:00</span>
                 <span class="pill">~18 h la dană</span>
@@ -1008,7 +1071,7 @@
             </div>
           </div>
           <div class="callout">
-            Prima zi e intenționat mai scurtă (~35 NM pe seaway, nu ~60 NM până la Trogir). Așa ajungeți odihniți, cu timp de plimbare seara — nu doar de acostare.
+            Prima zi e intenționat mai scurtă (~35 NM pe seaway, nu ~60 NM până la Scheria). Așa ajungeți odihniți, cu timp de plimbare seara — nu doar de acostare.
           </div>
         </div>
       </article>
@@ -1018,23 +1081,23 @@
         <div class="day-card">
           <div class="day-top">
             <div class="route-title">
-              <h3>Šibenik → Blue Lagoon → Trogir</h3>
+              <h3>Ismaros → Lotofagi → Scheria</h3>
               <p class="day-date">Luni, 14 septembrie</p>
-              <p>Înot la Blue Lagoon pe drum, apoi seară lungă în Trogir UNESCO — fără grabă de la o etapă de 60 NM.</p>
+              <p>Înot în Țara Lotofagilor pe drum, apoi seară lungă în Scheria Feacilor — fără grabă de la o etapă de 60 NM.</p>
             </div>
             <div class="sailing">~30 NM • ~5 h de zi</div>
           </div>
           <div class="day-wx" data-wx-ids="d2_leave,d2_lagoon,d2_trogir"></div>
           <div class="day-stays">
-            <div class="stay-chip" data-wx="d2_lagoon"><small>Oprire</small><b>Blue Lagoon</b><span>~12:00 · 1–1.5 h</span></div>
-            <div class="stay-chip night" data-wx="d2_trogir"><small>Înoptare</small><b>ACI Trogir</b><span>15:30 → mar 09:00 · ~17.5 h</span></div>
+            <div class="stay-chip" data-wx="d2_lagoon"><small>Oprire</small><b>Țara Lotofagilor</b><span>~12:00 · 1–1.5 h</span></div>
+            <div class="stay-chip night" data-wx="d2_trogir"><small>Înoptare</small><b>Portul Feacilor</b><span>15:30 → mar 09:00 · ~17.5 h</span></div>
           </div>
           <div class="stops">
             <div class="stop" data-wx="d2_lagoon">
               <div class="stop-icon">💧</div>
               <div>
-                <h4>Blue Lagoon (Krknjaši, Drvenik Veli)</h4>
-                <p>Golf turcoaz cu fund nisipos, chiar pe traseu — oprire de înot și prânz la ancoră înainte de Trogir.</p>
+                <h4>Țara Lotofagilor</h4>
+                <p>Golf turcoaz cu fund nisipos — apele care te fac să uiți drumul spre casă. Oprire de înot și prânz la ancoră înainte de Scheria. (Blue Lagoon / Krknjaši)</p>
                 <div class="meta"><span class="pill">1–1.5 h</span><span class="pill cost">gratuit</span><span class="pill must">merită</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Drvenik_Veli" target="_blank" rel="noopener">Wikipedia</a>
@@ -1045,8 +1108,8 @@
             <div class="stop">
               <div class="stop-icon">🏰</div>
               <div>
-                <h4>Kamerlengo Fortress</h4>
-                <p>Fortăreață medievală chiar lângă promenadă; bună pentru panoramă și apus.</p>
+                <h4>Cetatea Feacilor</h4>
+                <p>Bastion chiar lângă promenadă — zidurile Scheriei, bune pentru panoramă și apus.</p>
                 <div class="meta"><span class="pill">45–60 min</span><span class="pill cost">~€5</span><span class="pill must">merită</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Kamerlengo_Castle" target="_blank" rel="noopener">Wikipedia</a>
@@ -1057,8 +1120,8 @@
             <div class="stop" data-wx="d2_evening">
               <div class="stop-icon">⛪</div>
               <div>
-                <h4>St. Lawrence Cathedral + centrul UNESCO</h4>
-                <p>Portalul lui Radovan, piața centrală și străduțele vechi sunt toate la câteva minute una de alta. Turnul catedralei oferă cea mai bună panoramă asupra orașului.</p>
+                <h4>Palatul Alcinous + centrul UNESCO</h4>
+                <p>Portalul sculptat, piața centrală și străduțele vechi — ospitalitatea Feacilor, la câteva minute una de alta. Turnul oferă cea mai bună panoramă asupra Scheriei.</p>
                 <div class="meta"><span class="pill">60–90 min</span><span class="pill cost">~€7 (turn inclus)</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Trogir_Cathedral" target="_blank" rel="noopener">Wikipedia</a>
@@ -1070,8 +1133,8 @@
             <div class="stop" data-wx="d2_evening">
               <div class="stop-icon">🏛️</div>
               <div>
-                <h4>City Loggia + turnul cu ceas</h4>
-                <p>Loggia din sec. XV cu relieful lui Ivan Meštrović, chiar în piața centrală — se vede în 10 minute în drum spre cină.</p>
+                <h4>Agora Feacilor</h4>
+                <p>Loggia din sec. XV cu relief, chiar în piața centrală — se vede în 10 minute în drum spre cină.</p>
                 <div class="meta"><span class="pill">10–15 min</span><span class="pill cost">gratuit</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Trogir" target="_blank" rel="noopener">Wikipedia</a>
@@ -1082,8 +1145,8 @@
             <div class="stop" data-wx="d2_dinner">
               <div class="stop-icon">🍽️</div>
               <div>
-                <h4>Konoba Trs</h4>
-                <p>Opțiune bună de cină în centrul vechi, într-o curte dalmată.</p>
+                <h4>Ospățul Feacilor</h4>
+                <p>Opțiune bună de cină în centrul vechi — ca la masa lui Alcinous, într-o curte dalmată.</p>
                 <div class="meta"><span class="pill">~1.5–2 h cină</span></div>
                 <div class="stop-links">
                   <a href="https://konoba-trs.com/en/" target="_blank" rel="noopener">Site oficial</a>
@@ -1094,7 +1157,7 @@
           <div class="overnight" data-wx="d2_trogir">
             <div class="stop-icon">🌙</div>
             <div>
-              <h4>Înoptare — ACI Marina Trogir</h4>
+              <h4>Înoptare — Portul Feacilor (Scheria)</h4>
               <p>Sosire ~15:30, plecare marți 09:00. Staționare ~17.5 h. Centrul UNESCO e la ~5 minute pe jos, peste pod. Alternativă: dană în oraș sau ancoră lângă, dacă marina e plină.</p>
               <div class="meta">
                 <span class="pill">15:30 → 09:00</span>
@@ -1114,31 +1177,31 @@
         <div class="day-card">
           <div class="day-top">
             <div class="route-title">
-              <h3>Trogir → Hvar → Palmižana</h3>
+              <h3>Scheria → Eaia → Grădina Circei</h3>
               <p class="day-date">Marți, 15 septembrie</p>
-              <p>Hvar pentru istorie și panoramă, apoi golf pentru baie și seară relaxată.</p>
+              <p>Eaia pentru farmec și panoramă — apoi golful Circei pentru baie și seară relaxată.</p>
             </div>
             <div class="sailing">~30 NM • 5–5.5 h de zi</div>
           </div>
           <div class="day-wx" data-wx-ids="d3_leave,d3_hvar,d3_palm"></div>
           <div class="day-stays">
-            <div class="stay-chip" data-wx="d3_hvar"><small>Oprire</small><b>Hvar Town</b><span>~14:00–17:00 · ~3 h</span></div>
-            <div class="stay-chip night" data-wx="d3_palm"><small>Înoptare</small><b>Vinogradišće / Laganini</b><span>17:30 → mie 07:30 · ~14 h</span></div>
+            <div class="stay-chip" data-wx="d3_hvar"><small>Oprire</small><b>Eaia</b><span>~14:00–17:00 · ~3 h</span></div>
+            <div class="stay-chip night" data-wx="d3_palm"><small>Înoptare</small><b>Grădina Circei</b><span>17:30 → mie 07:30 · ~14 h</span></div>
           </div>
           <div class="stops">
             <div class="stop" data-wx="d3_hvar">
               <div class="stop-icon">🏛️</div>
               <div>
-                <h4>Hvar Town — dană de după-amiază</h4>
-                <p>Sosire ~14:00, plecare spre Palmižana ~17:00. Staționare ~3 h: destul pentru Fortica și o plimbare în centru, nu pentru tot muzeul.</p>
+                <h4>Eaia — dană de după-amiază</h4>
+                <p>Sosire ~14:00, plecare spre Grădina Circei ~17:00. Staționare ~3 h: destul pentru citadela Circei și o plimbare în centru. (Hvar)</p>
                 <div class="meta"><span class="pill">~3 h la dană</span><span class="pill">14:00–17:00</span></div>
               </div>
             </div>
             <div class="stop" data-wx="d3_hvar">
               <div class="stop-icon">🏯</div>
               <div>
-                <h4>Fortica Hvar</h4>
-                <p>Urcare scurtă din centru; cea mai bună panoramă asupra orașului și insulelor Pakleni.</p>
+                <h4>Citadela Circei</h4>
+                <p>Urcare scurtă din centru; cea mai bună panoramă asupra Eaiei și a insulelor vrăjite.</p>
                 <div class="meta"><span class="pill">1–1.5 h</span><span class="pill cost">~€12</span><span class="pill must">top pick</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Hvar_(town)" target="_blank" rel="noopener">Wikipedia</a>
@@ -1150,8 +1213,8 @@
             <div class="stop" data-wx="d3_hvar">
               <div class="stop-icon">🎭</div>
               <div>
-                <h4>Arsenal + vechiul teatru Hvar</h4>
-                <p>Unul dintre cele mai vechi teatre publice din Europa (1612). Bun de combinat cu Fortica dacă aveți aproximativ două ore în oraș.</p>
+                <h4>Teatrul vrăjitoarei</h4>
+                <p>Unul dintre cele mai vechi teatre publice din Europa (1612). Bun de combinat cu citadela dacă aveți aproximativ două ore pe Eaia.</p>
                 <div class="meta"><span class="pill">30–45 min</span><span class="pill cost">bilet combinat ~€15</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Hvar_Arsenal" target="_blank" rel="noopener">Wikipedia</a>
@@ -1162,8 +1225,8 @@
             <div class="stop" data-wx="d3_hvar">
               <div class="stop-icon">⛪</div>
               <div>
-                <h4>Pjaca + Catedrala Sf. Ștefan</h4>
-                <p>Cea mai mare piață veche din Dalmația, între port și catedrală — o traversați oricum, merită 20 de minute de plimbare lentă.</p>
+                <h4>Agora Eaiei</h4>
+                <p>Cea mai mare piață veche din Dalmația, între port și templu — o traversați oricum, merită 20 de minute de plimbare lentă.</p>
                 <div class="meta"><span class="pill">20–30 min</span><span class="pill cost">gratuit</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Hvar_Cathedral" target="_blank" rel="noopener">Wikipedia</a>
@@ -1174,8 +1237,8 @@
             <div class="stop" data-wx="d3_palm">
               <div class="stop-icon">🌴</div>
               <div>
-                <h4>Palmižana / Vinogradišće Bay</h4>
-                <p>Noapte pe geamandură, lângă Laganini — alegerea din planul inițial, mai socială decât ACI Palmižana. Grădina Meneghello e la 5 minute pe jos.</p>
+                <h4>Grădina Circei</h4>
+                <p>Noapte pe geamandură în golful vrăjit — alegerea din planul inițial. Grădina botanică (Meneghello) e la 5 minute pe jos, ca livada Circei. (Palmižana / Vinogradišće)</p>
                 <div class="meta"><span class="pill">seară la golf</span><span class="pill must">înot</span></div>
                 <div class="stop-links">
                   <a href="https://laganinihvar.com/" target="_blank" rel="noopener">Laganini</a>
@@ -1186,8 +1249,8 @@
             <div class="stop" data-wx="d3_palm">
               <div class="stop-icon">🌿</div>
               <div>
-                <h4>Grădina botanică Meneghello, Palmižana</h4>
-                <p>Grădină tropicală pe Pakleni, deschisă seara pentru plimbare scurtă înainte de cină.</p>
+                <h4>Livada Circei</h4>
+                <p>Grădină tropicală pe insulele Pakleni — plante și umbră ca pe Eaia, deschisă seara pentru plimbare scurtă înainte de cină.</p>
                 <div class="meta"><span class="pill">30–45 min</span><span class="pill cost">intrare modestă / cu cină</span></div>
                 <div class="stop-links">
                   <a href="https://www.palmizana.com/" target="_blank" rel="noopener">Palmižana</a>
@@ -1198,8 +1261,8 @@
           <div class="overnight" data-wx="d3_palm">
             <div class="stop-icon">🌙</div>
             <div>
-              <h4>Înoptare — Vinogradišće / Laganini</h4>
-              <p>Sosire ~17:30, plecare miercuri 07:30. Staționare ~14 h. Rezervați geamandura din timp. ACI Palmižana e alternativa cu apă/curent (~€120–180; uneori dană gratuită dacă cinați la restaurantele din golf).</p>
+              <h4>Înoptare — Grădina Circei</h4>
+              <p>Sosire ~17:30, plecare miercuri 07:30. Staționare ~14 h. Rezervați geamandura din timp. ACI e alternativa cu apă/curent (~€120–180; uneori dană gratuită dacă cinați la restaurantele din golf).</p>
               <div class="meta">
                 <span class="pill">17:30 → 07:30</span>
                 <span class="pill">~14 h la geamandură</span>
@@ -1212,7 +1275,7 @@
             </div>
           </div>
           <div class="callout">
-            Alternativă liniștită: <a href="https://en.wikipedia.org/wiki/%C5%A0%C4%87edro" target="_blank" rel="noopener"><strong>Mostir Bay, Šćedro</strong></a> în loc de Palmižana — natură, ruinele unei mănăstiri dominicane și mult mai puțin aglomerat.
+            Alternativă liniștită: <a href="https://en.wikipedia.org/wiki/%C5%A0%C4%87edro" target="_blank" rel="noopener"><strong>Insula Sirenelor (Mostir / Šćedro)</strong></a> în loc de Grădina Circei — natură, ruine și mult mai puțin aglomerat.
           </div>
         </div>
       </article>
@@ -1222,25 +1285,25 @@
         <div class="day-card">
           <div class="day-top">
             <div class="route-title">
-              <h3>Palmižana → Blue Cave → Vis</h3>
+              <h3>Grădina Circei → Polifem → Ogigia</h3>
               <p class="day-date">Miercuri, 16 septembrie</p>
-              <p>Ziua de peisaj: peșteri, golfuri și seară în Vis Town.</p>
+              <p>Ziua peșterilor: Polifem, Caribda, Sirenele — apoi seară pe Ogigia, la Calipso.</p>
             </div>
             <div class="sailing">~35 NM • ~6 h de zi</div>
           </div>
           <div class="day-wx" data-wx-ids="d4_leave,d4_blue,d4_green,d4_stiniva,d4_tunnel,d4_vis"></div>
           <div class="day-stays">
-            <div class="stay-chip" data-wx="d4_blue"><small>Oprire</small><b>Blue Cave</b><span>~10:00 · 45–75 min</span></div>
-            <div class="stay-chip" data-wx="d4_green"><small>Oprire</small><b>Green Cave</b><span>~11:15 · 30–45 min</span></div>
-            <div class="stay-chip" data-wx="d4_stiniva"><small>Oprire</small><b>Stiniva</b><span>~12:15 · 45–60 min</span></div>
-            <div class="stay-chip night" data-wx="d4_vis"><small>Înoptare</small><b>Vis Town</b><span>16:00 → joi 09:00 · ~17 h</span></div>
+            <div class="stay-chip" data-wx="d4_blue"><small>Oprire</small><b>Peștera lui Polifem</b><span>~10:00 · 45–75 min</span></div>
+            <div class="stay-chip" data-wx="d4_green"><small>Oprire</small><b>Gura Caribdei</b><span>~11:15 · 30–45 min</span></div>
+            <div class="stay-chip" data-wx="d4_stiniva"><small>Oprire</small><b>Golfulețul Sirenelor</b><span>~12:15 · 45–60 min</span></div>
+            <div class="stay-chip night" data-wx="d4_vis"><small>Înoptare</small><b>Ogigia</b><span>16:00 → joi 09:00 · ~17 h</span></div>
           </div>
           <div class="stops">
             <div class="stop" data-wx="d4_blue">
               <div class="stop-icon">🔵</div>
               <div>
-                <h4>Blue Cave, Biševo</h4>
-                <p>Lumina albastră clasică. Ajungeți dimineața, înainte de aglomerația de prânz. Biletele se iau pe loc / online; barca mare stă afară, intrați cu barca peșterii.</p>
+                <h4>Peștera lui Polifem</h4>
+                <p>Lumina albastră a Ciclopeului. Ajungeți dimineața, înainte de aglomerația de prânz. Biletele se iau pe loc / online; barca mare stă afară, intrați cu barca peșterii. (Blue Cave / Biševo)</p>
                 <div class="meta"><span class="pill">45–75 min</span><span class="pill cost">~€20–25 / pers.</span><span class="pill must">top pick</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Blue_Grotto_(Bi%C5%A1evo)" target="_blank" rel="noopener">Wikipedia</a>
@@ -1251,8 +1314,8 @@
             <div class="stop" data-wx="d4_green">
               <div class="stop-icon">🟢</div>
               <div>
-                <h4>Green Cave, Ravnik</h4>
-                <p>Sora mai puțin cunoscută a Blue Cave: aici se poate intra cu tenderul și chiar înota în interior, în lumina verde. Chiar pe drumul de întoarcere spre Vis.</p>
+                <h4>Gura Caribdei</h4>
+                <p>Sora mai puțin cunoscută a peșterii lui Polifem: intrați cu tenderul și înotați în lumina verde — pe drumul spre Ogigia. (Green Cave / Ravnik)</p>
                 <div class="meta"><span class="pill">30–45 min</span><span class="pill cost">gratuit / mic tip</span></div>
                 <div class="stop-links">
                   <a href="https://www.geopark-vis.com/eng/zasticeni-spomenici-prirode-i-znacajni-krajobrazi" target="_blank" rel="noopener">Geopark Vis</a>
@@ -1262,8 +1325,8 @@
             <div class="stop" data-wx="d4_stiniva">
               <div class="stop-icon">🏖️</div>
               <div>
-                <h4>Stiniva Cove</h4>
-                <p>Golf îngust între faleze; ancorați afară și intrați cu tenderul. Una dintre cele mai frumoase plaje din Croația.</p>
+                <h4>Golfulețul Sirenelor</h4>
+                <p>Golf îngust între faleze — ca stâncile Sirenelor; ancorați afară și intrați cu tenderul. Una dintre cele mai frumoase plaje. (Stiniva)</p>
                 <div class="meta"><span class="pill">45–60 min</span><span class="pill cost">gratuit</span><span class="pill must">merită</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Vis_(island)" target="_blank" rel="noopener">Wikipedia</a>
@@ -1274,8 +1337,8 @@
             <div class="stop" data-wx="d4_tunnel">
               <div class="stop-icon">🛥️</div>
               <div>
-                <h4>Tunelul de submarine, Rogačić</h4>
-                <p>Bază militară iugoslavă săpată în stâncă. Se vede de pe apă; cu tenderul intrați mai aproape dacă e calm.</p>
+                <h4>Coborârea în Hades</h4>
+                <p>Tunel săpat în stâncă — pe Odisee, pragul lumii de dincolo. Se vede de pe apă; cu tenderul intrați mai aproape dacă e calm. (Rogačić)</p>
                 <div class="meta"><span class="pill">30–60 min</span><span class="pill cost">gratuit</span></div>
                 <div class="stop-links">
                   <a href="https://www.vis-tourism.com/en/" target="_blank" rel="noopener">Visit Vis</a>
@@ -1285,8 +1348,8 @@
             <div class="stop" data-wx="d4_vis">
               <div class="stop-icon">🏰</div>
               <div>
-                <h4>Fort George</h4>
-                <p>Fortificație britanică deasupra Visului; combinați-o cu tunelul militar dacă aveți 1.5–2 ore.</p>
+                <h4>Veghea Calipso</h4>
+                <p>Fortificație deasupra Ogigiei; combinați-o cu Coborârea în Hades dacă aveți 1.5–2 ore.</p>
                 <div class="meta"><span class="pill">45–60 min</span><span class="pill cost">~€5</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Vis_(town)" target="_blank" rel="noopener">Wikipedia</a>
@@ -1296,8 +1359,8 @@
             <div class="stop" data-wx="d4_dinner">
               <div class="stop-icon">🍷</div>
               <div>
-                <h4>Vin Vugava + Konoba Lola</h4>
-                <p>Vis are unul dintre cele mai vechi soiuri albe din Croația. Crame bune chiar în oraș (Lipanović — într-un fost tunel militar — sau Roki's), apoi cină la Lola.</p>
+                <h4>Ambrozia Calipso</h4>
+                <p>Ogigia are unul dintre cele mai vechi soiuri albe. Crame bune chiar în port (Lipanović — într-un fost tunel — sau Roki's), apoi cină la Lola.</p>
                 <div class="meta"><span class="pill">seară</span></div>
                 <div class="stop-links">
                   <a href="https://www.vis-tourism.com/en/" target="_blank" rel="noopener">Visit Vis</a>
@@ -1308,7 +1371,7 @@
           <div class="overnight" data-wx="d4_vis">
             <div class="stop-icon">🌙</div>
             <div>
-              <h4>Înoptare — Portul Vis Town</h4>
+              <h4>Înoptare — Portul Ogigiei (Calipso)</h4>
               <p>Sosire ~16:00, plecare joi 09:00. Staționare ~17 h. Rezervați dană din timp în sezon; alternativa e ancoră în golf pe vreme calmă.</p>
               <div class="meta">
                 <span class="pill">16:00 → 09:00</span>
@@ -1321,7 +1384,7 @@
             </div>
           </div>
           <div class="callout">
-            Dacă vreți mai multă istorie militară: <strong>Titova špilja</strong> și bateriile de pe <strong>Muntele Hum</strong> se pot vizita cu un tur local cu jeep-ul (~2–3 h) — de rezervat doar dacă sacrificați Fort George. Detalii: <a href="https://www.vis-tourism.com/en/" target="_blank" rel="noopener">Visit Vis</a>.
+            Dacă vreți mai multă istorie: <strong>Peștera lui Tito</strong> și bateriile de pe <strong>Muntele Hum</strong> se pot vizita cu un tur local (~2–3 h) — de rezervat doar dacă sacrificați Veghea Calipso. Detalii: <a href="https://www.vis-tourism.com/en/" target="_blank" rel="noopener">Visit Vis</a>.
           </div>
         </div>
       </article>
@@ -1331,23 +1394,23 @@
         <div class="day-card">
           <div class="day-top">
             <div class="route-title">
-              <h3>Vis → Maslinica → Primošten</h3>
+              <h3>Ogigia → Trinacia → Eolia</h3>
               <p class="day-date">Joi, 17 septembrie</p>
-              <p>Întoarcere spre nord pe o etapă rezonabilă, cu prânz la Maslinica — nu cei ~75 NM pe care i-ar forța Korčula.</p>
+              <p>Întoarcere spre nord, cu prânz pe Trinacia (insula Soarelui) — nu cei ~75 NM pe care i-ar forța Telepil.</p>
             </div>
             <div class="sailing">~40 NM • 6–7 h de zi</div>
           </div>
           <div class="day-wx" data-wx-ids="d5_leave,d5_maslinica,d5_kremik"></div>
           <div class="day-stays">
-            <div class="stay-chip" data-wx="d5_maslinica"><small>Oprire</small><b>Maslinica</b><span>~13:30 · 1–1.5 h prânz</span></div>
-            <div class="stay-chip night" data-wx="d5_kremik"><small>Înoptare</small><b>Marina Kremik</b><span>17:00 → vin 08:00 · ~15 h</span></div>
+            <div class="stay-chip" data-wx="d5_maslinica"><small>Oprire</small><b>Trinacia</b><span>~13:30 · 1–1.5 h prânz</span></div>
+            <div class="stay-chip night" data-wx="d5_kremik"><small>Înoptare</small><b>Portul lui Eol</b><span>17:00 → vin 08:00 · ~15 h</span></div>
           </div>
           <div class="stops">
             <div class="stop" data-wx="d5_maslinica">
               <div class="stop-icon">⚓</div>
               <div>
-                <h4>Maslinica, Šolta — pauză de prânz</h4>
-                <p>Singurul port de pe coasta de vest a Šoltei, cu castel venețian din 1708 (azi hotel Martinis Marchi) și golfuri de înot chiar lângă intrare.</p>
+                <h4>Trinacia — Insula Soarelui</h4>
+                <p>Portul de pe coasta de vest, cu castel venețian din 1708 — pe Odisee, pășunile lui Helios. Golfuri de înot chiar lângă intrare. (Maslinica / Šolta)</p>
                 <div class="meta"><span class="pill">1–1.5 h</span><span class="pill cost">gratuit</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/%C5%A0olta" target="_blank" rel="noopener">Wikipedia</a>
@@ -1358,8 +1421,8 @@
             <div class="stop" data-wx="d5_kremik">
               <div class="stop-icon">🏘️</div>
               <div>
-                <h4>Primošten Old Town</h4>
-                <p>Centru vechi pe peninsulă, foarte fotogenic și complet accesibil pe jos.</p>
+                <h4>Cetatea Eoliei</h4>
+                <p>Centru vechi pe peninsulă — ca turnul vânturilor lui Eol, fotogenic și accesibil pe jos. (Primošten)</p>
                 <div class="meta"><span class="pill">60–90 min</span><span class="pill cost">gratuit</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Primo%C5%A1ten" target="_blank" rel="noopener">Wikipedia</a>
@@ -1370,8 +1433,8 @@
             <div class="stop" data-wx="d5_sunset">
               <div class="stop-icon">⛪</div>
               <div>
-                <h4>Church of St. George</h4>
-                <p>Urcare scurtă spre punctul dominant al peninsulei; bună pentru apus.</p>
+                <h4>Altarul vânturilor</h4>
+                <p>Urcare scurtă spre punctul dominant al peninsulei — unde Eol ține burdufurile vântului; bună pentru apus.</p>
                 <div class="meta"><span class="pill">30–45 min</span><span class="pill cost">gratuit</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Primo%C5%A1ten" target="_blank" rel="noopener">Wikipedia</a>
@@ -1382,8 +1445,8 @@
             <div class="stop" data-wx="d5_kremik">
               <div class="stop-icon">🍇</div>
               <div>
-                <h4>Viile Bucavac + Gospa od Loreta</h4>
-                <p>Viile în „fagure de piatră" de lângă Primošten sunt pe lista tentativă UNESCO. Statuia Gospa od Loreta de pe deal oferă cea mai bună panoramă asupra peninsulei.</p>
+                <h4>Livezile lui Helios</h4>
+                <p>Viile în „fagure de piatră" de lângă Eolia sunt pe lista tentativă UNESCO. Statuia de pe deal oferă cea mai bună panoramă asupra peninsulei.</p>
                 <div class="meta"><span class="pill">45–60 min</span><span class="pill cost">gratuit</span></div>
                 <div class="stop-links">
                   <a href="https://whc.unesco.org/en/tentativelists/5102" target="_blank" rel="noopener">UNESCO</a>
@@ -1395,8 +1458,8 @@
           <div class="overnight" data-wx="d5_kremik">
             <div class="stop-icon">🌙</div>
             <div>
-              <h4>Înoptare — Marina Kremik (sau portul Primošten)</h4>
-              <p>Sosire ~17:00, plecare vineri 08:00. Staționare ~15 h. Kremik e cea mai adăpostită marină (taxi scurt până în orașul vechi). Dacă găsiți loc, portul din Primošten e mai aproape pe jos.</p>
+              <h4>Înoptare — Portul lui Eol (Eolia)</h4>
+              <p>Sosire ~17:00, plecare vineri 08:00. Staționare ~15 h. Marina Kremik e cea mai adăpostită (taxi scurt până în cetate). Dacă găsiți loc, portul din Primošten e mai aproape pe jos.</p>
               <div class="meta">
                 <span class="pill">17:00 → 08:00</span>
                 <span class="pill">~15 h la dană</span>
@@ -1409,8 +1472,8 @@
             </div>
           </div>
           <div class="callout">
-            <strong>Korčula</strong> rămâne afară din aceste 6 zile: Vis → Korčula → Primošten ar forța o zi de ~75 NM. Cu o zi în plus, Korčula (ACI + orașul vechi, Proizd pe drum) merită din plin.
-            Alternativă de marină joi: <a href="https://en.wikipedia.org/wiki/Rogoznica" target="_blank" rel="noopener"><strong>Rogoznica</strong></a> (Marina Frapa).
+            <strong>Telepil</strong> (Lestrigonii) rămâne afară din aceste 6 zile: Ogigia → Telepil → Eolia ar forța ~75 NM. Cu o zi în plus, Telepil merită din plin.
+            Alternativă de marină joi: <a href="https://en.wikipedia.org/wiki/Rogoznica" target="_blank" rel="noopener"><strong>Portul secundar al Eoliei</strong></a> (Rogoznica / Marina Frapa).
           </div>
         </div>
       </article>
@@ -1420,24 +1483,24 @@
         <div class="day-card">
           <div class="day-top">
             <div class="route-title">
-              <h3>Primošten → Sukošan (+ Zadar pe uscat)</h3>
+              <h3>Eolia → Itaca (+ țărmul Penelopei)</h3>
               <p class="day-date">Vineri, 18 septembrie</p>
-              <p>Retur vineri seara la Marina Dalmacija. Fortăreața Sf. Nicolae ați văzut-o duminică; azi țineți traseul curat spre predare, apoi Zadar pe uscat.</p>
+              <p>Retur vineri seara în portul Itacăi. Veghea Troiei ați văzut-o duminică; azi țineți traseul curat spre casă, apoi țărmul Penelopei pe uscat.</p>
             </div>
             <div class="sailing">~40 NM • predare seara</div>
           </div>
           <div class="day-wx" data-wx-ids="d6_leave,d6_vodice,d6_sukosan"></div>
           <div class="day-stays">
-            <div class="stay-chip" data-wx="d6_vodice"><small>Oprire</small><b>Vodice / Tribunj</b><span>~11:30 · înot scurt opțional</span></div>
-            <div class="stay-chip night" data-wx="d6_sukosan"><small>Predare</small><b>Marina Dalmacija</b><span>~18:00 · seara</span></div>
-            <div class="stay-chip" data-wx="d6_zadar"><small>Pe uscat</small><b>Zadar</b><span>după predare · ~1.5–2 h</span></div>
+            <div class="stay-chip" data-wx="d6_vodice"><small>Oprire</small><b>Capul lui Poseidon</b><span>~11:30 · înot scurt opțional</span></div>
+            <div class="stay-chip night" data-wx="d6_sukosan"><small>Predare</small><b>Portul Itacăi</b><span>~18:00 · seara</span></div>
+            <div class="stay-chip" data-wx="d6_zadar"><small>Pe uscat</small><b>Țărmul Penelopei</b><span>după predare · ~1.5–2 h</span></div>
           </div>
           <div class="stops">
             <div class="stop" data-wx="d6_vodice">
               <div class="stop-icon">🌊</div>
               <div>
-                <h4>Vodice / Tribunj — pauză scurtă (opțional)</h4>
-                <p>Dacă vremea e bună și aveți rezervă de timp, o oprire de înot pe coastă rupe etapa de retur. Altfel, treceți direct spre Sukošan.</p>
+                <h4>Capul lui Poseidon — pauză scurtă (opțional)</h4>
+                <p>Dacă vremea e bună și aveți rezervă de timp, o oprire de înot pe coastă rupe etapa de retur. Altfel, treceți direct spre Itaca. (Vodice / Tribunj)</p>
                 <div class="meta"><span class="pill">30–45 min</span><span class="pill cost">gratuit</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Vodice,_Croatia" target="_blank" rel="noopener">Wikipedia</a>
@@ -1447,8 +1510,8 @@
             <div class="stop" data-wx="d6_zadar">
               <div class="stop-icon">🏺</div>
               <div>
-                <h4>Roman Forum + Biserica Sf. Donat, Zadar</h4>
-                <p>Ruinele forului roman și biserica circulară din sec. IX, simbolul orașului — chiar în centru. Turnul catedralei Sf. Anastasia se poate urca pentru panoramă.</p>
+                <h4>Palatul lui Odiseu</h4>
+                <p>Ruinele forului roman și sanctuarul circular — pe Odisee, curtea de acasă. Turnul se poate urca pentru panoramă asupra țărmului Penelopei. (Zadar)</p>
                 <div class="meta"><span class="pill">30–45 min</span><span class="pill cost">forum gratuit • turn ~€5</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Church_of_St._Donatus" target="_blank" rel="noopener">Wikipedia</a>
@@ -1459,8 +1522,8 @@
             <div class="stop" data-wx="d6_zadar">
               <div class="stop-icon">🎶</div>
               <div>
-                <h4>Sea Organ</h4>
-                <p>Treapte pe mal care cântă cu valurile — experiența clasică de apus din Zadar, la 10 km de marină.</p>
+                <h4>Cântecul Sirenelor</h4>
+                <p>Treapte pe mal care cântă cu valurile — pe Odisee, cântecul care te cheamă acasă. La 10 km de portul Itacăi. (Sea Organ)</p>
                 <div class="meta"><span class="pill">20–40 min</span><span class="pill cost">gratuit</span><span class="pill must">apus</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Sea_organ" target="_blank" rel="noopener">Wikipedia</a>
@@ -1471,8 +1534,8 @@
             <div class="stop" data-wx="d6_zadar">
               <div class="stop-icon">☀️</div>
               <div>
-                <h4>Greeting to the Sun</h4>
-                <p>Lângă Sea Organ; merită mai ales dacă prindeți apusul. Zadarul are, după Hitchcock, „cel mai frumos apus din lume".</p>
+                <h4>Salutul lui Helios</h4>
+                <p>Lângă Cântecul Sirenelor; merită mai ales dacă prindeți apusul — „cel mai frumos apus din lume", după Hitchcock.</p>
                 <div class="meta"><span class="pill">15–30 min</span><span class="pill cost">gratuit</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Monument_to_the_Sun" target="_blank" rel="noopener">Wikipedia</a>
@@ -1483,8 +1546,8 @@
             <div class="stop" data-wx="d6_zadar">
               <div class="stop-icon">🚪</div>
               <div>
-                <h4>Land Gate + Piața celor Cinci Fântâni</h4>
-                <p>Poarta venețiană din 1543 cu leul Sf. Marcu — parte din fortificațiile UNESCO — și piața cu cele cinci fântâni de lângă parcul Reginei Jelena.</p>
+                <h4>Poarta Itacăi</h4>
+                <p>Poarta din 1543 cu leul — parte din fortificațiile UNESCO — și piața cu cele cinci fântâni: pragul casei pe țărmul Penelopei.</p>
                 <div class="meta"><span class="pill">20–30 min</span><span class="pill cost">gratuit</span></div>
                 <div class="stop-links">
                   <a href="https://en.wikipedia.org/wiki/Zadar" target="_blank" rel="noopener">Wikipedia</a>
@@ -1497,8 +1560,8 @@
           <div class="overnight" data-wx="d6_sukosan">
             <div class="stop-icon">⚓</div>
             <div>
-              <h4>Predare — D-Marin Marina Dalmacija, Sukošan</h4>
-              <p>Sosire vineri ~18:00. Nu e noapte de charter: barca se predă seara. Zadar e la 10 km — după acostare mai aveți ~1.5–2 h pe uscat pentru Sea Organ și apus.</p>
+              <h4>Întoarcerea acasă — Portul Itacăi</h4>
+              <p>Sosire vineri ~18:00. Nu e noapte de charter: barca se predă seara. Țărmul Penelopei e la 10 km — după acostare mai aveți ~1.5–2 h pe uscat pentru Cântecul Sirenelor și apus.</p>
               <div class="meta">
                 <span class="pill">sosire ~18:00</span>
                 <span class="pill">predare seara</span>
@@ -1510,7 +1573,7 @@
             </div>
           </div>
           <div class="callout">
-            Predarea e <strong>vineri seara</strong> — nu rămâneți peste noapte în <a href="https://en.wikipedia.org/wiki/Kornati" target="_blank" rel="noopener">Kornati</a> sau <a href="https://en.wikipedia.org/wiki/Tela%C5%A1%C4%87ica" target="_blank" rel="noopener">Telašćica</a>. Un mic detur de pe apă e posibil doar dacă păstrați rezervă de timp, ca să fiți la marină până seara.
+            Predarea e <strong>vineri seara</strong> — nu rămâneți peste noapte în <a href="https://en.wikipedia.org/wiki/Kornati" target="_blank" rel="noopener">Arhipelagul Uitat</a> sau <a href="https://en.wikipedia.org/wiki/Tela%C5%A1%C4%87ica" target="_blank" rel="noopener">Golful Uitat</a>. Un mic detur e posibil doar dacă păstrați rezervă de timp, ca să fiți în Itaca până seara.
           </div>
         </div>
       </article>
@@ -1518,21 +1581,21 @@
   </main>
 
   <footer class="wrap footer">
-    Traseu orientativ pentru planificare. Navigăm doar ziua. Distanțele, danele și accesul în golfuri trebuie verificate înainte de plecare în chartplotter / Navionics, la VHF 17 și în funcție de vreme.
+    Odiseea — traseu orientativ pentru planificare. Navigăm doar ziua. Numele sunt din epopee; GPS-ul, danele și canalele rămân reale — verificați-le în chartplotter / Navionics, la VHF 17 și în funcție de vreme.
     Prognoza (Open-Meteo) e pe ora planificată în fiecare loc; se actualizează la deschiderea paginii.
   </footer>
 
   <script>
     const STOP_TYPES = {
-      marina:   { label: 'Marină',           icon: '⚓', color: '#0f3557' },
-      town:     { label: 'Oraș vechi',       icon: '🏛️', color: '#1d6fa5' },
-      swim:     { label: 'Golf / înot',      icon: '🌊', color: '#1a9b8a' },
-      cave:     { label: 'Peșteră',          icon: '🔵', color: '#4c6ef5' },
-      military: { label: 'Istorie militară', icon: '🛥️', color: '#495057' },
-      wine:     { label: 'Crama',            icon: '🍷', color: '#9b2226' },
-      fortress: { label: 'Fortăreață',       icon: '🏰', color: '#b08968' },
-      land:     { label: 'Pe uscat',         icon: '🚶', color: '#2f7e65' },
-      optional: { label: 'Alternativă',      icon: '✦',  color: '#c9a227' }
+      marina:   { label: 'Port mitic',       icon: '⚓', color: '#0b1c2c' },
+      town:     { label: 'Tărâm din epopee', icon: '🏛️', color: '#1a5f73' },
+      swim:     { label: 'Golf / înot',      icon: '🌊', color: '#3d8f8a' },
+      cave:     { label: 'Peșteră',          icon: '🔵', color: '#355a8a' },
+      military: { label: 'Hades / tunel',    icon: '🛥️', color: '#495057' },
+      wine:     { label: 'Ambrozie',         icon: '🍷', color: '#7a2e34' },
+      fortress: { label: 'Cetate',           icon: '🏰', color: '#b8893d' },
+      land:     { label: 'Pe uscat',         icon: '🚶', color: '#3d7a62' },
+      optional: { label: 'Alternativă',      icon: '✦',  color: '#c4a35a' }
     };
 
     // Exact berth / anchorage GPS (lat, lng) — not town centres.
@@ -1562,113 +1625,113 @@
     };
 
     const WX = {
-      d1_start:     { label: '07:00', place: 'Sukošan',     time: '2026-09-13T07:00:00+02:00', coords: GPS.sukosan },
-      d1_fort:      { label: '12:00', place: 'Sf. Nicolae', time: '2026-09-13T12:00:00+02:00', coords: GPS.stNicholasSea },
-      d1_sibenik:   { label: '15:00', place: 'Šibenik',     time: '2026-09-13T15:00:00+02:00', coords: GPS.sibenik },
-      d1_evening:   { label: '18:00', place: 'Šibenik',     time: '2026-09-13T18:00:00+02:00', coords: GPS.sibenik },
-      d1_dinner:    { label: '20:00', place: 'Šibenik',     time: '2026-09-13T20:00:00+02:00', coords: GPS.sibenik },
-      d2_leave:     { label: '09:00', place: 'Šibenik',     time: '2026-09-14T09:00:00+02:00', coords: GPS.sibenik },
-      d2_lagoon:    { label: '12:00', place: 'Blue Lagoon', time: '2026-09-14T12:00:00+02:00', coords: GPS.blueLagoon },
-      d2_trogir:    { label: '15:30', place: 'Trogir',      time: '2026-09-14T15:30:00+02:00', coords: GPS.trogirAci },
-      d2_evening:   { label: '18:00', place: 'Trogir',      time: '2026-09-14T18:00:00+02:00', coords: GPS.trogirAci },
-      d2_dinner:    { label: '20:00', place: 'Trogir',      time: '2026-09-14T20:00:00+02:00', coords: GPS.trogirAci },
-      d3_leave:     { label: '09:00', place: 'Trogir',      time: '2026-09-15T09:00:00+02:00', coords: GPS.trogirAci },
-      d3_hvar:      { label: '14:00', place: 'Hvar',        time: '2026-09-15T14:00:00+02:00', coords: GPS.hvarPort },
-      d3_palm:      { label: '17:30', place: 'Palmižana',   time: '2026-09-15T17:30:00+02:00', coords: GPS.vinogradisce },
-      d3_alt:       { label: '18:00', place: 'Šćedro',      time: '2026-09-15T18:00:00+02:00', coords: GPS.mostir },
-      d4_leave:     { label: '07:30', place: 'Palmižana',   time: '2026-09-16T07:30:00+02:00', coords: GPS.vinogradisce },
-      d4_blue:      { label: '10:00', place: 'Blue Cave',   time: '2026-09-16T10:00:00+02:00', coords: GPS.blueCave },
-      d4_green:     { label: '11:15', place: 'Green Cave',  time: '2026-09-16T11:15:00+02:00', coords: GPS.greenCave },
-      d4_stiniva:   { label: '12:15', place: 'Stiniva',     time: '2026-09-16T12:15:00+02:00', coords: GPS.stiniva },
-      d4_tunnel:    { label: '14:30', place: 'Rogačić',     time: '2026-09-16T14:30:00+02:00', coords: GPS.rogacic },
-      d4_vis:       { label: '16:00', place: 'Vis',         time: '2026-09-16T16:00:00+02:00', coords: GPS.visPort },
-      d4_dinner:    { label: '20:00', place: 'Vis',         time: '2026-09-16T20:00:00+02:00', coords: GPS.visPort },
-      d5_leave:     { label: '09:00', place: 'Vis',         time: '2026-09-17T09:00:00+02:00', coords: GPS.visPort },
-      d5_maslinica: { label: '13:30', place: 'Maslinica',   time: '2026-09-17T13:30:00+02:00', coords: GPS.maslinica },
-      d5_kremik:    { label: '17:00', place: 'Kremik',      time: '2026-09-17T17:00:00+02:00', coords: GPS.kremik },
-      d5_rogo:      { label: '17:00', place: 'Rogoznica',   time: '2026-09-17T17:00:00+02:00', coords: GPS.rogoznica },
-      d5_sunset:    { label: '19:00', place: 'Primošten',   time: '2026-09-17T19:00:00+02:00', coords: GPS.kremik },
-      d6_leave:     { label: '08:00', place: 'Kremik',      time: '2026-09-18T08:00:00+02:00', coords: GPS.kremik },
-      d6_vodice:    { label: '11:30', place: 'Vodice',      time: '2026-09-18T11:30:00+02:00', coords: GPS.vodice },
-      d6_tela:      { label: '14:00', place: 'Telašćica',   time: '2026-09-18T14:00:00+02:00', coords: GPS.telascica },
-      d6_sukosan:   { label: '18:00', place: 'Sukošan',     time: '2026-09-18T18:00:00+02:00', coords: GPS.sukosan },
-      d6_zadar:     { label: '19:30', place: 'Zadar',       time: '2026-09-18T19:30:00+02:00', coords: GPS.seaOrgan },
-      d6_sunset:    { label: '19:15', place: 'Zadar',       time: '2026-09-18T19:15:00+02:00', coords: GPS.seaOrgan }
+      d1_start:     { label: '07:00', place: 'Itaca',           time: '2026-09-13T07:00:00+02:00', coords: GPS.sukosan },
+      d1_fort:      { label: '12:00', place: 'Veghea Troiei',   time: '2026-09-13T12:00:00+02:00', coords: GPS.stNicholasSea },
+      d1_sibenik:   { label: '15:00', place: 'Ismaros',         time: '2026-09-13T15:00:00+02:00', coords: GPS.sibenik },
+      d1_evening:   { label: '18:00', place: 'Ismaros',         time: '2026-09-13T18:00:00+02:00', coords: GPS.sibenik },
+      d1_dinner:    { label: '20:00', place: 'Ismaros',         time: '2026-09-13T20:00:00+02:00', coords: GPS.sibenik },
+      d2_leave:     { label: '09:00', place: 'Ismaros',         time: '2026-09-14T09:00:00+02:00', coords: GPS.sibenik },
+      d2_lagoon:    { label: '12:00', place: 'Lotofagi',        time: '2026-09-14T12:00:00+02:00', coords: GPS.blueLagoon },
+      d2_trogir:    { label: '15:30', place: 'Scheria',         time: '2026-09-14T15:30:00+02:00', coords: GPS.trogirAci },
+      d2_evening:   { label: '18:00', place: 'Scheria',         time: '2026-09-14T18:00:00+02:00', coords: GPS.trogirAci },
+      d2_dinner:    { label: '20:00', place: 'Scheria',         time: '2026-09-14T20:00:00+02:00', coords: GPS.trogirAci },
+      d3_leave:     { label: '09:00', place: 'Scheria',         time: '2026-09-15T09:00:00+02:00', coords: GPS.trogirAci },
+      d3_hvar:      { label: '14:00', place: 'Eaia',            time: '2026-09-15T14:00:00+02:00', coords: GPS.hvarPort },
+      d3_palm:      { label: '17:30', place: 'Grădina Circei',  time: '2026-09-15T17:30:00+02:00', coords: GPS.vinogradisce },
+      d3_alt:       { label: '18:00', place: 'Insula Sirenelor',time: '2026-09-15T18:00:00+02:00', coords: GPS.mostir },
+      d4_leave:     { label: '07:30', place: 'Grădina Circei',  time: '2026-09-16T07:30:00+02:00', coords: GPS.vinogradisce },
+      d4_blue:      { label: '10:00', place: 'Polifem',         time: '2026-09-16T10:00:00+02:00', coords: GPS.blueCave },
+      d4_green:     { label: '11:15', place: 'Caribda',         time: '2026-09-16T11:15:00+02:00', coords: GPS.greenCave },
+      d4_stiniva:   { label: '12:15', place: 'Sirene',          time: '2026-09-16T12:15:00+02:00', coords: GPS.stiniva },
+      d4_tunnel:    { label: '14:30', place: 'Hades',           time: '2026-09-16T14:30:00+02:00', coords: GPS.rogacic },
+      d4_vis:       { label: '16:00', place: 'Ogigia',          time: '2026-09-16T16:00:00+02:00', coords: GPS.visPort },
+      d4_dinner:    { label: '20:00', place: 'Ogigia',          time: '2026-09-16T20:00:00+02:00', coords: GPS.visPort },
+      d5_leave:     { label: '09:00', place: 'Ogigia',          time: '2026-09-17T09:00:00+02:00', coords: GPS.visPort },
+      d5_maslinica: { label: '13:30', place: 'Trinacia',        time: '2026-09-17T13:30:00+02:00', coords: GPS.maslinica },
+      d5_kremik:    { label: '17:00', place: 'Eolia',           time: '2026-09-17T17:00:00+02:00', coords: GPS.kremik },
+      d5_rogo:      { label: '17:00', place: 'Eolia alt.',      time: '2026-09-17T17:00:00+02:00', coords: GPS.rogoznica },
+      d5_sunset:    { label: '19:00', place: 'Eolia',           time: '2026-09-17T19:00:00+02:00', coords: GPS.kremik },
+      d6_leave:     { label: '08:00', place: 'Eolia',           time: '2026-09-18T08:00:00+02:00', coords: GPS.kremik },
+      d6_vodice:    { label: '11:30', place: 'Poseidon',        time: '2026-09-18T11:30:00+02:00', coords: GPS.vodice },
+      d6_tela:      { label: '14:00', place: 'Golful Uitat',    time: '2026-09-18T14:00:00+02:00', coords: GPS.telascica },
+      d6_sukosan:   { label: '18:00', place: 'Itaca',           time: '2026-09-18T18:00:00+02:00', coords: GPS.sukosan },
+      d6_zadar:     { label: '19:30', place: 'Penelopa',        time: '2026-09-18T19:30:00+02:00', coords: GPS.seaOrgan },
+      d6_sunset:    { label: '19:15', place: 'Penelopa',        time: '2026-09-18T19:15:00+02:00', coords: GPS.seaOrgan }
     };
 
     const wxStore = new Map();
 
     const stops = [
-      { name: 'Sukošan — D-Marin Marina Dalmacija', day: 'Start duminică 07:00 / predare vineri ~18:00', coords: GPS.sukosan, anchor: 'day-1', type: 'marina', night: 'Predare vineri seara', wx: ['d1_start', 'd6_sukosan'], links: [
+      { name: 'Itaca — Portul lui Odiseu', day: 'Start duminică 07:00 / întoarcere vineri ~18:00', coords: GPS.sukosan, anchor: 'day-1', type: 'marina', night: 'Întoarcerea acasă · vineri seara', wx: ['d1_start', 'd6_sukosan'], links: [
         { label: 'Marina', href: 'https://www.d-marin.com/en/marinas/dalmacija/' }
       ]},
-      { name: 'Fortăreața Sf. Nicolae, Šibenik', day: 'Ziua 1 — de pe apă', coords: GPS.stNicholas, anchor: 'day-1', type: 'fortress', wx: 'd1_fort', links: [
+      { name: 'Veghea Troiei', day: 'Ziua 1 — de pe apă', coords: GPS.stNicholas, anchor: 'day-1', type: 'fortress', wx: 'd1_fort', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/St._Nicholas_Fortress' },
         { label: 'UNESCO', href: 'https://whc.unesco.org/en/list/1533' }
       ]},
-      { name: 'Šibenik — Marina Mandalina', day: 'Ziua 1 — înoptare', coords: GPS.sibenik, anchor: 'day-1', type: 'town', night: 'Marina Mandalina · 15:00–09:00 (~18 h)', wx: 'd1_sibenik', links: [
+      { name: 'Ismaros — Țara Ciclonilor', day: 'Ziua 1 — înoptare', coords: GPS.sibenik, anchor: 'day-1', type: 'town', night: 'Portul Ismaros · 15:00–09:00 (~18 h)', wx: 'd1_sibenik', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/%C5%A0ibenik' },
         { label: 'Marina Mandalina', href: 'https://www.marina-mandalina.com/' }
       ]},
-      { name: 'Blue Lagoon, Krknjaši', day: 'Ziua 2 — oprire de înot', coords: GPS.blueLagoon, anchor: 'day-2', type: 'swim', stay: '1–1.5 h', wx: 'd2_lagoon', links: [
+      { name: 'Țara Lotofagilor', day: 'Ziua 2 — oprire de înot', coords: GPS.blueLagoon, anchor: 'day-2', type: 'swim', stay: '1–1.5 h', wx: 'd2_lagoon', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Drvenik_Veli' }
       ]},
-      { name: 'Trogir — ACI Marina', day: 'Ziua 2 — înoptare', coords: GPS.trogirAci, anchor: 'day-2', type: 'town', night: 'ACI Trogir · 15:30–09:00 (~17.5 h)', wx: 'd2_trogir', links: [
+      { name: 'Scheria — Portul Feacilor', day: 'Ziua 2 — înoptare', coords: GPS.trogirAci, anchor: 'day-2', type: 'town', night: 'Portul Feacilor · 15:30–09:00 (~17.5 h)', wx: 'd2_trogir', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Trogir' },
         { label: 'ACI Trogir', href: 'https://aci-marinas.com/marina/aci-trogir/' }
       ]},
-      { name: 'Hvar — portul orașului', day: 'Ziua 3', coords: GPS.hvarPort, anchor: 'day-3', type: 'town', stay: '~3 h (14:00–17:00)', wx: 'd3_hvar', links: [
+      { name: 'Eaia — Insula Circei', day: 'Ziua 3', coords: GPS.hvarPort, anchor: 'day-3', type: 'town', stay: '~3 h (14:00–17:00)', wx: 'd3_hvar', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Hvar_(town)' },
         { label: 'Visit Hvar', href: 'https://visithvar.hr/see-and-do/cultural-sights/' }
       ]},
-      { name: 'Palmižana — Vinogradišće', day: 'Ziua 3 — înoptare', coords: GPS.vinogradisce, anchor: 'day-3', type: 'swim', night: 'Vinogradišće / Laganini · 17:30–07:30 (~14 h)', wx: 'd3_palm', links: [
+      { name: 'Grădina Circei', day: 'Ziua 3 — înoptare', coords: GPS.vinogradisce, anchor: 'day-3', type: 'swim', night: 'Grădina Circei · 17:30–07:30 (~14 h)', wx: 'd3_palm', links: [
         { label: 'Laganini', href: 'https://laganinihvar.com/' },
         { label: 'ACI Palmižana', href: 'https://aci-marinas.com/marina/aci-palmizana/' }
       ]},
-      { name: 'Mostir Bay, Šćedro', day: 'Alternativă Ziua 3', coords: GPS.mostir, anchor: 'day-3', type: 'optional', wx: 'd3_alt', links: [
+      { name: 'Insula Sirenelor', day: 'Alternativă Ziua 3', coords: GPS.mostir, anchor: 'day-3', type: 'optional', wx: 'd3_alt', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/%C5%A0%C4%87edro' }
       ]},
-      { name: 'Blue Cave, Biševo', day: 'Ziua 4', coords: GPS.blueCave, anchor: 'day-4', type: 'cave', stay: '45–75 min', wx: 'd4_blue', links: [
+      { name: 'Peștera lui Polifem', day: 'Ziua 4', coords: GPS.blueCave, anchor: 'day-4', type: 'cave', stay: '45–75 min', wx: 'd4_blue', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Blue_Grotto_(Bi%C5%A1evo)' },
         { label: 'Site oficial', href: 'https://bluecave-bisevo.com/en/' }
       ]},
-      { name: 'Green Cave, Ravnik', day: 'Ziua 4', coords: GPS.greenCave, anchor: 'day-4', type: 'cave', stay: '30–45 min', wx: 'd4_green', links: [
+      { name: 'Gura Caribdei', day: 'Ziua 4', coords: GPS.greenCave, anchor: 'day-4', type: 'cave', stay: '30–45 min', wx: 'd4_green', links: [
         { label: 'Geopark Vis', href: 'https://www.geopark-vis.com/eng/zasticeni-spomenici-prirode-i-znacajni-krajobrazi' }
       ]},
-      { name: 'Stiniva Cove', day: 'Ziua 4', coords: GPS.stiniva, anchor: 'day-4', type: 'swim', stay: '45–60 min', wx: 'd4_stiniva', links: [
+      { name: 'Golfulețul Sirenelor', day: 'Ziua 4', coords: GPS.stiniva, anchor: 'day-4', type: 'swim', stay: '45–60 min', wx: 'd4_stiniva', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Vis_(island)' },
         { label: 'Geopark Vis', href: 'https://www.geopark-vis.com/eng/zasticeni-spomenici-prirode-i-znacajni-krajobrazi' }
       ]},
-      { name: 'Rogačić / Submarine Tunnel', day: 'Ziua 4', coords: GPS.rogacic, anchor: 'day-4', type: 'military', stay: '30–60 min', wx: 'd4_tunnel', links: [
+      { name: 'Coborârea în Hades', day: 'Ziua 4', coords: GPS.rogacic, anchor: 'day-4', type: 'military', stay: '30–60 min', wx: 'd4_tunnel', links: [
         { label: 'Visit Vis', href: 'https://www.vis-tourism.com/en/' }
       ]},
-      { name: 'Vis Town — port', day: 'Ziua 4 — înoptare', coords: GPS.visPort, anchor: 'day-4', type: 'town', night: 'Port Vis Town · 16:00–09:00 (~17 h)', wx: 'd4_vis', links: [
+      { name: 'Ogigia — Portul Calipso', day: 'Ziua 4 — înoptare', coords: GPS.visPort, anchor: 'day-4', type: 'town', night: 'Portul Calipso · 16:00–09:00 (~17 h)', wx: 'd4_vis', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Vis_(town)' },
         { label: 'Visit Vis', href: 'https://www.vis-tourism.com/en/' }
       ]},
-      { name: 'Korčula — ACI Marina', day: 'Doar cu o zi în plus', coords: GPS.korculaAci, anchor: 'day-5', type: 'optional', wx: null, links: [
+      { name: 'Telepil — Lestrigonii', day: 'Doar cu o zi în plus', coords: GPS.korculaAci, anchor: 'day-5', type: 'optional', wx: null, links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Kor%C4%8Dula_(town)' },
         { label: 'ACI Korčula', href: 'https://aci-marinas.com/marina/aci-korcula/' }
       ]},
-      { name: 'Maslinica — Martinis Marchi', day: 'Ziua 5 — pauză de prânz', coords: GPS.maslinica, anchor: 'day-5', type: 'marina', stay: '1–1.5 h', wx: 'd5_maslinica', links: [
+      { name: 'Trinacia — Insula Soarelui', day: 'Ziua 5 — pauză de prânz', coords: GPS.maslinica, anchor: 'day-5', type: 'marina', stay: '1–1.5 h', wx: 'd5_maslinica', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/%C5%A0olta' },
         { label: 'Martinis Marchi', href: 'https://www.martinis-marchi.com/' }
       ]},
-      { name: 'Primošten — Marina Kremik', day: 'Ziua 5 — înoptare', coords: GPS.kremik, anchor: 'day-5', type: 'town', night: 'Marina Kremik · 17:00–08:00 (~15 h)', wx: 'd5_kremik', links: [
+      { name: 'Eolia — Portul lui Eol', day: 'Ziua 5 — înoptare', coords: GPS.kremik, anchor: 'day-5', type: 'town', night: 'Portul lui Eol · 17:00–08:00 (~15 h)', wx: 'd5_kremik', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Primo%C5%A1ten' },
         { label: 'Marina Kremik', href: 'https://marina-kremik.com/' }
       ]},
-      { name: 'Rogoznica', day: 'Alternativă Ziua 5', coords: GPS.rogoznica, anchor: 'day-5', type: 'optional', wx: 'd5_rogo', links: [
+      { name: 'Eolia — port alternativ', day: 'Alternativă Ziua 5', coords: GPS.rogoznica, anchor: 'day-5', type: 'optional', wx: 'd5_rogo', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Rogoznica' }
       ]},
-      { name: 'Vodice / Tribunj', day: 'Ziua 6 — oprire opțională', coords: GPS.vodice, anchor: 'day-6', type: 'swim', stay: '30–45 min', wx: 'd6_vodice', links: [
+      { name: 'Capul lui Poseidon', day: 'Ziua 6 — oprire opțională', coords: GPS.vodice, anchor: 'day-6', type: 'swim', stay: '30–45 min', wx: 'd6_vodice', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Vodice,_Croatia' }
       ]},
-      { name: 'Telašćica, Dugi Otok', day: 'Nu overnight — doar detur dacă e timp vineri', coords: GPS.telascica, anchor: 'day-6', type: 'optional', wx: 'd6_tela', links: [
+      { name: 'Golful Uitat', day: 'Nu overnight — doar detur dacă e timp vineri', coords: GPS.telascica, anchor: 'day-6', type: 'optional', wx: 'd6_tela', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Tela%C5%A1%C4%87ica' },
         { label: 'Parc natural', href: 'https://pp-telascica.hr/?lang=en' }
       ]},
-      { name: 'Zadar — Sea Organ', day: 'Vineri seara — pe uscat', coords: GPS.seaOrgan, anchor: 'day-6', type: 'land', wx: 'd6_zadar', links: [
+      { name: 'Țărmul Penelopei — Cântecul Sirenelor', day: 'Vineri seara — pe uscat', coords: GPS.seaOrgan, anchor: 'day-6', type: 'land', wx: 'd6_zadar', links: [
         { label: 'Wikipedia', href: 'https://en.wikipedia.org/wiki/Zadar' },
         { label: 'Visit Zadar', href: 'https://zadar.travel/' }
       ]}
@@ -1676,72 +1739,72 @@
 
     // via[] = seaway waypoints from the previous stop. Stay in open water, well off headlands.
     const journey = [
-      { name: 'Sukošan — Marina Dalmacija', note: 'Plecare foarte dimineața', coords: GPS.sukosan, time: '2026-09-13T07:00:00+02:00' },
-      { name: 'Fortăreața Sf. Nicolae', note: 'De pe apă', coords: GPS.stNicholasSea, time: '2026-09-13T12:00:00+02:00', via: [
+      { name: 'Itaca — Portul lui Odiseu', note: 'Plecare foarte dimineața', coords: GPS.sukosan, time: '2026-09-13T07:00:00+02:00' },
+      { name: 'Veghea Troiei', note: 'De pe apă', coords: GPS.stNicholasSea, time: '2026-09-13T12:00:00+02:00', via: [
         [44.0480, 15.2880], [44.0200, 15.3000], [43.9800, 15.3450], [43.9400, 15.3950],
         [43.9050, 15.4300], [43.8600, 15.4550], [43.8100, 15.4900], [43.7700, 15.5600],
         [43.7500, 15.6500], [43.7400, 15.7400], [43.7300, 15.8100]
       ]},
-      { name: 'Šibenik — Marina Mandalina', note: 'Sosire • noapte în port', coords: GPS.sibenik, time: '2026-09-13T15:00:00+02:00', via: [
+      { name: 'Ismaros', note: 'Sosire • noapte în port', coords: GPS.sibenik, time: '2026-09-13T15:00:00+02:00', via: [
         [43.7180, 15.8600], [43.7100, 15.8750], [43.7120, 15.8880]
       ]},
-      { name: 'Šibenik — Marina Mandalina', note: 'Plecare spre Trogir', coords: GPS.sibenik, time: '2026-09-14T09:00:00+02:00' },
-      { name: 'Blue Lagoon, Krknjaši', note: 'Oprire de înot', coords: GPS.blueLagoon, time: '2026-09-14T12:00:00+02:00', via: [
+      { name: 'Ismaros', note: 'Plecare spre Scheria', coords: GPS.sibenik, time: '2026-09-14T09:00:00+02:00' },
+      { name: 'Țara Lotofagilor', note: 'Oprire de înot', coords: GPS.blueLagoon, time: '2026-09-14T12:00:00+02:00', via: [
         [43.7120, 15.8880], [43.7100, 15.8750], [43.7000, 15.8600], [43.6600, 15.8800],
         [43.6200, 15.9200], [43.5800, 15.9800], [43.5400, 16.0500], [43.5000, 16.1100],
         [43.4700, 16.1500], [43.4500, 16.1650]
       ]},
-      { name: 'Trogir — ACI Marina', note: 'Sosire • noapte în port', coords: GPS.trogirAci, time: '2026-09-14T15:30:00+02:00', via: [
+      { name: 'Scheria — Portul Feacilor', note: 'Sosire • noapte în port', coords: GPS.trogirAci, time: '2026-09-14T15:30:00+02:00', via: [
         [43.4450, 16.1850], [43.4700, 16.1900], [43.4950, 16.1950], [43.5080, 16.2000],
         [43.5105, 16.2200], [43.5112, 16.2380]
       ]},
-      { name: 'Trogir — ACI Marina', note: 'Plecare spre Hvar', coords: GPS.trogirAci, time: '2026-09-15T09:00:00+02:00' },
-      { name: 'Hvar — portul orașului', note: 'Fortica și orașul vechi', coords: GPS.hvarPort, time: '2026-09-15T14:00:00+02:00', via: [
+      { name: 'Scheria — Portul Feacilor', note: 'Plecare spre Eaia', coords: GPS.trogirAci, time: '2026-09-15T09:00:00+02:00' },
+      { name: 'Eaia — Insula Circei', note: 'Citadela și agora', coords: GPS.hvarPort, time: '2026-09-15T14:00:00+02:00', via: [
         [43.5112, 16.2380], [43.5105, 16.2200], [43.5080, 16.1980], [43.4800, 16.1900],
         [43.4300, 16.1850], [43.3800, 16.1800], [43.3300, 16.1900], [43.2800, 16.2100],
         [43.2300, 16.2500], [43.1950, 16.2800], [43.1600, 16.3000], [43.1450, 16.3400],
         [43.1440, 16.3900], [43.1500, 16.4320], [43.1665, 16.4425]
       ]},
-      { name: 'Palmižana — Vinogradišće', note: 'Golf • noapte la ancoră', coords: GPS.vinogradisce, time: '2026-09-15T17:30:00+02:00', via: [
+      { name: 'Grădina Circei', note: 'Golf • noapte la ancoră', coords: GPS.vinogradisce, time: '2026-09-15T17:30:00+02:00', via: [
         [43.1665, 16.4425], [43.1500, 16.4320], [43.1440, 16.4100], [43.1460, 16.3950]
       ]},
-      { name: 'Palmižana — Vinogradišće', note: 'Plecare spre Biševo', coords: GPS.vinogradisce, time: '2026-09-16T07:30:00+02:00' },
-      { name: 'Blue Cave, Biševo', note: 'Lumina albastră', coords: GPS.blueCave, time: '2026-09-16T10:00:00+02:00', via: [
+      { name: 'Grădina Circei', note: 'Plecare spre Polifem', coords: GPS.vinogradisce, time: '2026-09-16T07:30:00+02:00' },
+      { name: 'Peștera lui Polifem', note: 'Lumina albastră', coords: GPS.blueCave, time: '2026-09-16T10:00:00+02:00', via: [
         [43.1440, 16.3750], [43.1400, 16.3000], [43.1360, 16.2000], [43.1320, 16.1000],
         [43.1280, 16.0200], [43.0900, 15.9900], [43.0400, 15.9850], [42.9950, 16.0050],
         [42.9880, 16.0200]
       ]},
-      { name: 'Green Cave, Ravnik', note: 'Înot în grotă', coords: GPS.greenCave, time: '2026-09-16T11:15:00+02:00', via: [
+      { name: 'Gura Caribdei', note: 'Înot în grotă', coords: GPS.greenCave, time: '2026-09-16T11:15:00+02:00', via: [
         [42.9680, 16.0350], [42.9450, 16.0800], [42.9100, 16.1500], [42.9000, 16.2100],
         [42.9100, 16.2650], [42.9500, 16.2700], [42.9800, 16.2550], [42.9950, 16.2400]
       ]},
-      { name: 'Stiniva Cove', note: 'Plajă între faleze', coords: GPS.stiniva, time: '2026-09-16T12:15:00+02:00', via: [
+      { name: 'Golfulețul Sirenelor', note: 'Plajă între faleze', coords: GPS.stiniva, time: '2026-09-16T12:15:00+02:00', via: [
         [42.9980, 16.2200], [42.9880, 16.2000], [42.9880, 16.1840]
       ]},
-      { name: 'Tunelul de submarine', note: 'Rogačić / Parja', coords: GPS.rogacic, time: '2026-09-16T14:30:00+02:00', via: [
+      { name: 'Coborârea în Hades', note: 'Rogačić / Parja', coords: GPS.rogacic, time: '2026-09-16T14:30:00+02:00', via: [
         [42.9880, 16.1840], [42.9750, 16.2100], [42.9650, 16.2600], [42.9700, 16.3200],
         [43.0200, 16.3300], [43.0700, 16.3200], [43.1150, 16.2800], [43.1200, 16.2200],
         [43.1050, 16.1950], [43.0920, 16.1910]
       ]},
-      { name: 'Vis Town — port', note: 'Sosire • noapte', coords: GPS.visPort, time: '2026-09-16T16:00:00+02:00', via: [
+      { name: 'Ogigia — Portul Calipso', note: 'Sosire • noapte', coords: GPS.visPort, time: '2026-09-16T16:00:00+02:00', via: [
         [43.0900, 16.2000], [43.0880, 16.2080], [43.0760, 16.2020], [43.0670, 16.1960]
       ]},
-      { name: 'Vis Town — port', note: 'Plecare spre Primošten', coords: GPS.visPort, time: '2026-09-17T09:00:00+02:00' },
-      { name: 'Maslinica — Martinis Marchi', note: 'Pauză de prânz', coords: GPS.maslinica, time: '2026-09-17T13:30:00+02:00', via: [
+      { name: 'Ogigia — Portul Calipso', note: 'Plecare spre Eolia', coords: GPS.visPort, time: '2026-09-17T09:00:00+02:00' },
+      { name: 'Trinacia — Insula Soarelui', note: 'Pauză de prânz', coords: GPS.maslinica, time: '2026-09-17T13:30:00+02:00', via: [
         [43.0670, 16.1960], [43.0780, 16.2080], [43.1000, 16.2200], [43.1500, 16.2300],
         [43.2000, 16.2300], [43.2500, 16.2200], [43.3000, 16.2100], [43.3500, 16.2000],
         [43.3800, 16.1950]
       ]},
-      { name: 'Primošten — Marina Kremik', note: 'Sosire • noapte', coords: GPS.kremik, time: '2026-09-17T17:00:00+02:00', via: [
+      { name: 'Eolia — Portul lui Eol', note: 'Sosire • noapte', coords: GPS.kremik, time: '2026-09-17T17:00:00+02:00', via: [
         [43.4000, 16.1750], [43.4150, 16.1000], [43.4400, 16.0300], [43.4900, 15.9700],
         [43.5400, 15.9450]
       ]},
-      { name: 'Primošten — Marina Kremik', note: 'Retur spre Sukošan', coords: GPS.kremik, time: '2026-09-18T08:00:00+02:00' },
-      { name: 'Vodice — pauză opțională', note: 'Înot scurt', coords: GPS.vodice, time: '2026-09-18T11:30:00+02:00', via: [
+      { name: 'Eolia — Portul lui Eol', note: 'Retur spre Itaca', coords: GPS.kremik, time: '2026-09-18T08:00:00+02:00' },
+      { name: 'Capul lui Poseidon', note: 'Înot scurt', coords: GPS.vodice, time: '2026-09-18T11:30:00+02:00', via: [
         [43.5850, 15.9150], [43.6300, 15.8800], [43.6800, 15.8580], [43.7200, 15.8300],
         [43.7400, 15.8000]
       ]},
-      { name: 'Sukošan — predare', note: 'Marina Dalmacija • seara', coords: GPS.sukosan, time: '2026-09-18T18:00:00+02:00', via: [
+      { name: 'Itaca — întoarcerea acasă', note: 'Portul lui Odiseu • seara', coords: GPS.sukosan, time: '2026-09-18T18:00:00+02:00', via: [
         [43.7700, 15.7400], [43.8000, 15.6500], [43.8300, 15.5600], [43.8600, 15.5000],
         [43.9000, 15.4500], [43.9400, 15.4000], [43.9800, 15.3500], [44.0200, 15.3100],
         [44.0480, 15.2880]
@@ -1874,11 +1937,11 @@
     });
 
     const remainingLine = L.polyline(routeLatLngs, {
-      color: '#1d6fa5', weight: 4, opacity: 0.55
+      color: '#1a5f73', weight: 4, opacity: 0.55
     }).addTo(map);
 
     const traveledLine = L.polyline([routeLatLngs[0]], {
-      color: '#0f3557', weight: 5, opacity: 0.9
+      color: '#0b1c2c', weight: 5, opacity: 0.9
     }).addTo(map);
 
     function stopIcon(type) {
@@ -1931,10 +1994,10 @@
         <div class="boat-tile">
           <div class="boat-glyph" id="boatGlyph">
             <svg viewBox="0 0 64 64" aria-hidden="true">
-              <path fill="#58b9d4" d="M32 8l18 28H14z"/>
-              <path fill="#e6c58f" d="M30 10v26h4V12z"/>
+              <path fill="#6fb3b0" d="M32 8l18 28H14z"/>
+              <path fill="#c4a35a" d="M30 10v26h4V12z"/>
               <path fill="#ffffff" d="M10 42c6 8 38 8 44 0H10z"/>
-              <path fill="#e6c58f" d="M8 40h48l-2 4H10z"/>
+              <path fill="#c4a35a" d="M8 40h48l-2 4H10z"/>
             </svg>
           </div>
           <small id="boatTileNote">Plecare</small>
